@@ -6,3 +6,38 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Admin {
+  id       String @id @default(uuid())
+  name     String
+  email    String
+  password String
+  photoUrl String
+}
+
+model Role {
+  id       String    @id @default(uuid())
+  name     String
+  employee Employee?
+}
+
+model Employee {
+  id       String @id @default(uuid())
+  roleId   String @unique
+  name     String
+  email    String
+  password String
+  photoUrl String
+  role     Role   @relation(fields: [roleId], references: [id])
+  Task     Task[]
+}
+
+model Task {
+  id          String   @id @default(uuid())
+  employeeId  String
+  description String
+  done        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  employee Employee @relation(fields: [employeeId], references: [id])
+}
