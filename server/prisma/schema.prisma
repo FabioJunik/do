@@ -16,14 +16,14 @@ model Admin {
 }
 
 model Role {
-  id       String    @id @default(uuid())
+  id       String     @id @default(uuid())
   name     String
-  employee Employee?
+  employee Employee[]
 }
 
 model Employee {
   id       String @id @default(uuid())
-  roleId   String @unique
+  roleId   String
   name     String
   email    String
   password String
