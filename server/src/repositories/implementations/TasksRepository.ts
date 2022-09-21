@@ -1,26 +1,35 @@
+import { PrismaClient } from "@prisma/client";
 import { Task } from "../../entities/Task";
-import { ICreateTaskDTO, ITaskRepository } from "../ITasksRepository";
+import { ICreateTaskDTO, ITasksRepository } from "../ITasksRepository";
 
 
+const prisma = new PrismaClient();
 
-export class TaskRepository implements ITaskRepository {
+export class TasksRepository implements ITasksRepository {
     private tasks: Task[];
 
-    public static INSTANCE: TaskRepository;
+    public static INSTANCE: TasksRepository;
 
     constructor() {
         this.tasks = [];
     }
 
     public static getINSTANCE() {
-        if (!TaskRepository.INSTANCE)
-            TaskRepository.INSTANCE = new TaskRepository();
+        if (!TasksRepository.INSTANCE)
+            TasksRepository.INSTANCE = new TasksRepository();
 
-        return TaskRepository.INSTANCE;
+        return TasksRepository.INSTANCE;
     }
 
-    public async save(task: ICreateTaskDTO): Promise<Task> {
-        return
+    public async save({ employeeId, description }: ICreateTaskDTO): Promise<Task> {
+        const taskData = await prisma.task.create({
+            data: {
+                employeeId,
+                description
+            }
+        })
+
+        return taskData;
     }
 
     public async list(): Promise<Task[]> {

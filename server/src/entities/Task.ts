@@ -5,8 +5,8 @@ export class Task {
 
     public employeeId: string;
     public description: string;
-    public done: string;
-    public createdAt: string;
+    public done: boolean;
+    public createdAt: Date;
 
 
     constructor(props: Omit<Task, "id">, id?: string) {
