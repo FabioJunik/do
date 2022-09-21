@@ -33,6 +33,8 @@ export class TasksRepository implements ITasksRepository {
     }
 
     public async list(): Promise<Task[]> {
-        return
+        this.tasks = await prisma.task.findMany();
+
+        return this.tasks;
     }
 }
