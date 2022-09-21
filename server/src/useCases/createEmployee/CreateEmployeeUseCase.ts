@@ -11,7 +11,13 @@ interface IRequest {
 export class CreateEmployeeUseCase {
     constructor(private employeeRepository: IEmployeesRepository) { }
 
-    execute(employee: IRequest) {
+    async execute(employee: IRequest) {
+        const employeeFound = await this.employeeRepository.findByEmail(employee.email);
+
+        if (employeeFound)
+            throw new Error("Employee already exists")
+
         this.employeeRepository.save(employee);
+
     }
 }
