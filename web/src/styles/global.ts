@@ -13,12 +13,14 @@ export default createGlobalStyle`
         font-size: 62.5%;
 
         --white: #fff;
-
+        --black-500: #282a36;
         --gray-300: #D9D9D9;
 
         --green-500: #219C61;
         --green-700: #175C3B;
         --green-900: #012821;
+
+        --red-600: #A72828;
     }
 
     html,body {
