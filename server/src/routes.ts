@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { createEmployeeComtroller } from './useCases/createEmployee';
 import { listEmployeesComtroller } from './useCases/ListEmployee';
+import { listRolesComtroller } from './useCases/Role/List';
 import { createTaskComtroller } from './useCases/Task/Create';
 import { listTasksComtroller } from './useCases/Task/List';
 
@@ -26,6 +27,9 @@ router.get('/tasks', (request, response) => {
     return listTasksComtroller.handle(request, response);
 });
 
+router.get('/roles', (request, response) => {
+    return listRolesComtroller.handle(request, response);
+});
 
 export { router };
 
