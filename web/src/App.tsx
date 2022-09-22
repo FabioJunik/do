@@ -1,11 +1,10 @@
+import { Home } from "./admin"
 
 
 function App() {
 
   return (
-    <div>
-
-    </div>
+    <Home />
   )
 }
 
