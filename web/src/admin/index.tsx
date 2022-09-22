@@ -1,10 +1,11 @@
 import axios from "axios";
+import * as Dialog from '@radix-ui/react-dialog';
 import { ListBullets, PencilSimpleLine, Trash, UserPlus } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { Avatar } from "../components/Avatar";
 import { Logo } from "../components/Logo";
 import { Container, Content, Top } from "./styles";
-
+import { CreateEmployeesModal } from "../components/CreateEmployeeModal";
 
 
 interface IEmployeeProps {
@@ -39,7 +40,12 @@ export function Home() {
                     <ul>
                         <li>Tarefas <ListBullets /></li>
                         <li>Funcionarios</li>
-                        <li>Adicionar <UserPlus /></li>
+                        <Dialog.Root>
+                            <Dialog.Trigger>
+                                <li>Adicionar <UserPlus /></li>
+                            </Dialog.Trigger>
+                            <CreateEmployeesModal />
+                        </Dialog.Root>
                     </ul>
                 </nav>
                 <table>

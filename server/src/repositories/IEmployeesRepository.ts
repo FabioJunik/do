@@ -8,7 +8,7 @@ interface ICreateEmployeeDTO {
     photoUrl: string;
 }
 
-type ListEmployeeProps = Omit<Employee, "roleId" | "password" | "id"> & {
+type ListEmployeeProps = Omit<Employee, "roleId" | "password"> & {
     role: {
         name: string;
     }
