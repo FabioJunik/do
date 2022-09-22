@@ -6,8 +6,18 @@ import { Logo } from "../components/Logo";
 import { Container, Content, Top } from "./styles";
 
 
+
+interface IEmployeeProps {
+    id: string;
+    name: string;
+    email: string;
+    role: {
+        name: string;
+    }
+}
+
 export function Home() {
-    const [employee, setEmployee] = useState([]);
+    const [employee, setEmployee] = useState<IEmployeeProps[]>([]);
 
     useEffect(() => {
         axios("http://localhost:5000/employees")
@@ -42,11 +52,11 @@ export function Home() {
                         </tr>
                     </thead>
                     <tbody>
-                        {employee && employee.map(({ id, name, roleId, email }) => (
+                        {employee && employee.map(({ id, name, role, email }) => (
                             <tr key={id}>
                                 <td>{name}</td>
                                 <td>{email}</td>
-                                <td>{roleId}</td>
+                                <td>{role.name}</td>
                                 <td>
                                     <PencilSimpleLine color="var(--green-700)" />
                                     <Trash color="var(--red-600)" />

@@ -8,11 +8,17 @@ interface ICreateEmployeeDTO {
     photoUrl: string;
 }
 
+type ListEmployeeProps = Omit<Employee, "roleId" | "password" | "id"> & {
+    role: {
+        name: string;
+    }
+}
+
 interface IEmployeesRepository {
     findById: (id: string) => Promise<Employee>;
     findByEmail: (email: string) => Promise<Employee>;
-    list: () => Promise<{}[]>;
+    list: () => Promise<ListEmployeeProps[]>;
     save: (employee: ICreateEmployeeDTO) => Promise<Employee>
 }
 
-export { IEmployeesRepository, ICreateEmployeeDTO }
+export { IEmployeesRepository, ICreateEmployeeDTO, ListEmployeeProps }

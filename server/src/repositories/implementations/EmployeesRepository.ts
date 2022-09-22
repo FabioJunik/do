@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Employee } from "../../entities/Employee";
-import { ICreateEmployeeDTO, IEmployeesRepository } from "../IEmployeesRepository";
+import { ICreateEmployeeDTO, IEmployeesRepository, ListEmployeeProps } from "../IEmployeesRepository";
 
 const prisma = new PrismaClient();
 
@@ -20,18 +20,19 @@ export class EmployeesRepository implements IEmployeesRepository {
         return EmployeesRepository.INSTANCE;
     }
 
-    public async list(): Promise<Employee[]> {
+    public async list(): Promise<ListEmployeeProps[]> {
         const employees = await prisma.employee.findMany({
             select: {
+                id: true,
                 name: true,
                 email: true,
                 photoUrl: true,
-                roleId: {
-                    include: {
+                role: {
+                    select: {
                         name: true
                     }
                 },
-            }
+            },
         });
 
         return employees;
