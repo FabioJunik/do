@@ -10,11 +10,11 @@ router.get('/', (request, response) => {
     return response.send({ message: 'Hello code 😎' });
 })
 
-router.post('/employee', (request, response) => {
+router.post('/employees', (request, response) => {
     return createEmployeeComtroller.handle(request, response);
 })
 
-router.get('/employee', (request, response) => {
+router.get('/employees', (request, response) => {
     return listEmployeesComtroller.handle(request, response);
 })
 

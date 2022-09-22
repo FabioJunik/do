@@ -11,7 +11,7 @@ interface ICreateEmployeeDTO {
 interface IEmployeesRepository {
     findById: (id: string) => Promise<Employee>;
     findByEmail: (email: string) => Promise<Employee>;
-    list: () => Promise<Employee[]>;
+    list: () => Promise<{}[]>;
     save: (employee: ICreateEmployeeDTO) => Promise<Employee>
 }
 

@@ -1,11 +1,21 @@
-import { ListBullets, PencilLine, PencilSimpleLine, Trash, TrashSimple, UserPlus } from "phosphor-react";
+import axios from "axios";
+import { ListBullets, PencilSimpleLine, Trash, UserPlus } from "phosphor-react";
+import { useEffect, useState } from "react";
 import { Avatar } from "../components/Avatar";
 import { Logo } from "../components/Logo";
 import { Container, Content, Top } from "./styles";
 
 
-
 export function Home() {
+    const [employee, setEmployee] = useState([]);
+
+    useEffect(() => {
+        axios("http://localhost:5000/employees")
+            .then(response => {
+                setEmployee(response.data)
+            })
+    }, []);
+
     return (
         <Container>
             <Top>
@@ -32,15 +42,18 @@ export function Home() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Fábio Madaleno Simão dos Santos</td>
-                            <td>fabiojunik@gmail.com</td>
-                            <td>Back End</td>
-                            <td>
-                                <PencilSimpleLine color="var(--green-700)" />
-                                <Trash color="var(--red-600)" />
-                            </td>
-                        </tr>
+                        {employee && employee.map(({ id, name, roleId, email }) => (
+                            <tr key={id}>
+                                <td>{name}</td>
+                                <td>{email}</td>
+                                <td>{roleId}</td>
+                                <td>
+                                    <PencilSimpleLine color="var(--green-700)" />
+                                    <Trash color="var(--red-600)" />
+                                </td>
+                            </tr>
+                        ))
+                        }
                     </tbody>
                 </table>
             </Content>

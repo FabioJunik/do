@@ -21,9 +21,20 @@ export class EmployeesRepository implements IEmployeesRepository {
     }
 
     public async list(): Promise<Employee[]> {
-        this.employees = await prisma.employee.findMany();
+        const employees = await prisma.employee.findMany({
+            select: {
+                name: true,
+                email: true,
+                photoUrl: true,
+                roleId: {
+                    include: {
+                        name: true
+                    }
+                },
+            }
+        });
 
-        return this.employees;
+        return employees;
     }
 
     public async save(employee: ICreateEmployeeDTO): Promise<Employee> {
