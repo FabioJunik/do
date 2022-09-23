@@ -5,6 +5,7 @@ import { listRolesComtroller } from './useCases/Role/List';
 import { createTaskComtroller } from './useCases/Task/Create';
 import { listTasksComtroller } from './useCases/Task/List';
 import { createUnassignedTaskComtroller } from './useCases/UnassignedTask/Create';
+import { listUnassignedTasksComtroller } from './useCases/UnassignedTask/List';
 
 const router = Router();
 
@@ -30,6 +31,10 @@ router.get('/tasks', (request, response) => {
 
 router.post('/unassignedtasks', (request, response) => {
     return createUnassignedTaskComtroller.handle(request, response);
+});
+
+router.get('/unassignedtasks', (request, response) => {
+    return listUnassignedTasksComtroller.handle(request, response);
 });
 
 router.get('/roles', (request, response) => {

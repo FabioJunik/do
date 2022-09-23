@@ -33,7 +33,7 @@ export class UnassignedTasksRepository implements IUnassignedTasksRepository {
     }
 
     public async list(): Promise<UnassignedTask[]> {
-
-        return;
+        const tasks = await prisma.unassignedTask.findMany();
+        return tasks;
     }
 }
