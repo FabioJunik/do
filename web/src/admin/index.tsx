@@ -9,11 +9,12 @@ import { Avatar } from "../components/Avatar";
 import { Logo } from "../components/Logo";
 import { Container, Content, PopoverArrow, PopoverContent, Top } from "./styles";
 import { EmployeeTable } from '../components/EmployeeTable';
+import { AssignedTaskTable } from '../components/AssignedTaskTable';
 
 
 export function Home() {
-    const [showEmployeeTable, setShowEmployeeTable] = useState(true);
-
+    const [showEmployeeTable, setShowEmployeeTable] = useState(false);
+    const [showAssignedTaskTable, setShowAssignedTaskTable] = useState(true);
     return (
         <Container>
             <Top>
@@ -30,13 +31,27 @@ export function Home() {
                                 <Popover.Trigger className="first">Tarefas <ListBullets /></Popover.Trigger>
                             </li>
                             <PopoverContent>
-                                <button>Atribuidas</button>
+                                <button
+                                    onClick={() => {
+                                        setShowAssignedTaskTable(true);
+                                        setShowEmployeeTable(false);
+                                    }}
+                                >Atribuidas</button>
                                 <button>Não atribuidas</button>
                                 <button>Não finalizadas</button>
                                 <PopoverArrow />
                             </PopoverContent>
                         </Popover.Root>
-                        <li><button>Funcionarios</button></li>
+                        <li>
+                            <button
+                                onClick={() => {
+                                    setShowAssignedTaskTable(false);
+                                    setShowEmployeeTable(true);
+                                }}
+                            >
+                                Funcionarios
+                            </button>
+                        </li>
                         <Dialog.Root>
                             <li>
                                 <Dialog.Trigger className="last">
@@ -48,6 +63,7 @@ export function Home() {
                     </ul>
                 </nav>
                 {showEmployeeTable && <EmployeeTable />}
+                {showAssignedTaskTable && <AssignedTaskTable />}
             </Content>
         </Container>
     )

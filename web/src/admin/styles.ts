@@ -113,6 +113,22 @@ export const Content = styled.div`
                 }
             }
         }
+
+        span{
+            padding: 0.25rem 1rem;
+            font-size: 1.1rem;
+            border-radius: 0.5rem;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .done{
+            background-color: green;
+        }
+
+        .processing{
+            background-color: orange;
+        }
     }
 `;
 
