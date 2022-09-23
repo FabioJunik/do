@@ -41,3 +41,9 @@ model Task {
 
   employee Employee @relation(fields: [employeeId], references: [id])
 }
+
+model UnassignedTask {
+  id          String   @id @default(uuid())
+  description String
+  createdAt   DateTime @default(now())
+}
