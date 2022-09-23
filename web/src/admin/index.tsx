@@ -1,11 +1,14 @@
 import axios from "axios";
-import * as Dialog from '@radix-ui/react-dialog';
-import { ListBullets, PencilSimpleLine, Trash, UserPlus } from "phosphor-react";
 import { useEffect, useState } from "react";
+
+import * as Dialog from '@radix-ui/react-dialog';
+import * as Popover from '@radix-ui/react-popover';
+import { ListBullets, PencilSimpleLine, Trash, UserPlus, X } from "phosphor-react";
+
+import { CreateEmployeesModal } from "../components/CreateEmployeeModal";
 import { Avatar } from "../components/Avatar";
 import { Logo } from "../components/Logo";
-import { Container, Content, Top } from "./styles";
-import { CreateEmployeesModal } from "../components/CreateEmployeeModal";
+import { Container, Content, PopoverArrow, PopoverContent, Top } from "./styles";
 
 
 interface IEmployeeProps {
@@ -16,6 +19,7 @@ interface IEmployeeProps {
         name: string;
     }
 }
+
 
 export function Home() {
     const [employee, setEmployee] = useState<IEmployeeProps[]>([]);
@@ -38,12 +42,26 @@ export function Home() {
             <Content>
                 <nav>
                     <ul>
-                        <li>Tarefas <ListBullets /></li>
-                        <li>Funcionarios</li>
+                        <Popover.Root>
+
+
+                            <li>
+                                <Popover.Trigger className="first">Tarefas <ListBullets /></Popover.Trigger>
+                            </li>
+                            <PopoverContent>
+                                <button>Atribuidas</button>
+                                <button>Não atribuidas</button>
+                                <button>Não finalizadas</button>
+                                <PopoverArrow />
+                            </PopoverContent>
+                        </Popover.Root>
+                        <li><button>Funcionarios</button></li>
                         <Dialog.Root>
-                            <Dialog.Trigger>
-                                <li>Adicionar <UserPlus /></li>
-                            </Dialog.Trigger>
+                            <li>
+                                <Dialog.Trigger className="last">
+                                    Adicionar <UserPlus />
+                                </Dialog.Trigger>
+                            </li>
                             <CreateEmployeesModal />
                         </Dialog.Root>
                     </ul>

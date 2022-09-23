@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.0",
+    "@radix-ui/react-popover": "^1.0.0",
     "@types/styled-components": "^5.1.26",
     "axios": "^0.27.2",
     "phosphor-react": "^1.4.1",

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import * as Popover from '@radix-ui/react-popover';
 
 
 
@@ -41,15 +41,25 @@ export const Content = styled.div`
         gap: .2rem;
         justify-content: end;
         margin: 1rem 0;
+
+        .first{
+            border-radius: 0.5rem 0 0 0.5rem;
+        }   
+
+        .last{
+            border-radius: 0 0.5rem 0.5rem 0;
+        }  
     }
 
-    nav ul li{
+    nav ul li button{
+        height: 3rem;
         padding: .5rem 1rem;        
         background-color: var(--green-500);
         color: var(--white);
         
+        border: none;
+        
         display: flex;
-        /* justify-content:space-between; */
         align-items: center;
         gap: 0.5rem;
 
@@ -65,14 +75,6 @@ export const Content = styled.div`
         &:hover{
             background-color:var(--green-700);
         }
-
-        &:first-child{
-            border-radius: 0.5rem 0 0 0.5rem;
-        }   
-
-        &:last-child{
-            border-radius: 0 0.5rem 0.5rem 0;
-        }  
         
     }
     table{
@@ -113,3 +115,28 @@ export const Content = styled.div`
         }
     }
 `;
+
+export const PopoverContent = styled(Popover.Content)`
+    position: relative;
+    border-radius: 5px;
+    padding: 1.5rem;
+    font-size: 1.4rem;
+    background-color: #fff;
+    color: black;
+    display: flex;
+    /* flex-direction: column; */
+    gap: 1rem;
+
+    button{
+        padding: 0.5rem 1rem;	
+        background-color: var(--green-300);
+        border: none;
+        color: var(--green-900);
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+`
+
+export const PopoverArrow = styled(Popover.Arrow)`
+    fill: #fff;
+`
