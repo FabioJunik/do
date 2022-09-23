@@ -6,9 +6,19 @@ interface ICreateTaskDTO {
     description: string;
 }
 
-interface ITasksRepository {
-    save: (task: ICreateTaskDTO) => Promise<Task>;
-    list: () => Promise<Task[]>;
+interface IListTaskDTO {
+    id: string;
+    description: string;
+    done: boolean;
+    createdAt: Date;
+    employee: {
+        name: string;
+    }
 }
 
-export { ITasksRepository, ICreateTaskDTO };
+interface ITasksRepository {
+    save: (task: ICreateTaskDTO) => Promise<Task>;
+    list: () => Promise<IListTaskDTO[]>;
+}
+
+export { ITasksRepository, ICreateTaskDTO, IListTaskDTO };

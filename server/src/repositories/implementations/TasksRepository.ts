@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Task } from "../../entities/Task";
-import { ICreateTaskDTO, ITasksRepository } from "../ITasksRepository";
+import { ICreateTaskDTO, IListTaskDTO, ITasksRepository } from "../ITasksRepository";
 
 
 const prisma = new PrismaClient();
@@ -32,9 +32,21 @@ export class TasksRepository implements ITasksRepository {
         return taskData;
     }
 
-    public async list(): Promise<Task[]> {
-        this.tasks = await prisma.task.findMany();
+    public async list(): Promise<IListTaskDTO[]> {
+        const tasks = await prisma.task.findMany({
+            select: {
+                id: true,
+                description: true,
+                done: true,
+                createdAt: true,
+                employee: {
+                    select: {
+                        name: true,
+                    }
+                }
+            }
+        });
 
-        return this.tasks;
+        return tasks;
     }
 }
