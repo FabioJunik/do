@@ -1,6 +1,7 @@
+import * as Dialog from "@radix-ui/react-dialog";
 import axios from "axios";
-import { PencilSimpleLine, Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
+import { ToAssignTaskModal } from "./ToAssignTaskModal";
 
 
 interface IUnassignedTaskProps {
@@ -33,7 +34,12 @@ export function UnassignedTaskTable() {
                         <td>{description}</td>
                         <td>{createdAt.toString().substring(0, 10)} às {createdAt.toString().substring(11, 16)}</td>
                         <td>
-                            <button>Atribuir</button>
+                            <Dialog.Root>
+                                <Dialog.Trigger title="Adicionar tarefa">
+                                    Atribuir
+                                </Dialog.Trigger>
+                                <ToAssignTaskModal description={description} />
+                            </Dialog.Root>
                             <button className="remove">Remover</button>
                         </td>
                     </tr>
