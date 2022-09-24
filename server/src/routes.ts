@@ -3,6 +3,7 @@ import { createEmployeeComtroller } from './useCases/createEmployee';
 import { listEmployeesComtroller } from './useCases/ListEmployee';
 import { listRolesComtroller } from './useCases/Role/List';
 import { createTaskComtroller } from './useCases/Task/Create';
+import { deleteTaskComtroller } from './useCases/Task/Delete';
 import { listTasksComtroller } from './useCases/Task/List';
 import { createUnassignedTaskComtroller } from './useCases/UnassignedTask/Create';
 import { deleteUnassignedTaskComtroller } from './useCases/UnassignedTask/Delete';
@@ -28,6 +29,10 @@ router.post('/tasks', (request, response) => {
 
 router.get('/tasks', (request, response) => {
     return listTasksComtroller.handle(request, response);
+});
+
+router.delete('/tasks/:id', (request, response) => {
+    return deleteTaskComtroller.handle(request, response);
 });
 
 router.post('/unassignedtasks', (request, response) => {

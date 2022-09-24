@@ -19,6 +19,7 @@ interface IListTaskDTO {
 interface ITasksRepository {
     save: (task: ICreateTaskDTO) => Promise<Task>;
     list: () => Promise<IListTaskDTO[]>;
+    delete: (id: string) => Promise<Task>;
 }
 
 export { ITasksRepository, ICreateTaskDTO, IListTaskDTO };
