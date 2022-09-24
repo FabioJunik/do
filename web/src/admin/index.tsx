@@ -2,15 +2,16 @@ import { useState } from 'react';
 
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Popover from '@radix-ui/react-popover';
-import { ListBullets, UserPlus } from "phosphor-react";
+import { ListBullets, Plus, UserPlus } from "phosphor-react";
 
-import { CreateEmployeesModal } from "../components/CreateEmployeeModal";
+import { CreateEmployeesModal } from "../components/CreateEmployeesModal";
 import { Avatar } from "../components/Avatar";
 import { Logo } from "../components/Logo";
 import { Container, Content, PopoverArrow, PopoverContent, Top } from "./styles";
 import { EmployeeTable } from '../components/EmployeeTable';
 import { AssignedTaskTable } from '../components/AssignedTaskTable';
 import { UnassignedTaskTable } from '../components/UnassignedTaskTable';
+import { CreateTaskModal } from '../components/CreateTaskModal';
 
 
 export function Home() {
@@ -33,6 +34,12 @@ export function Home() {
                                 <Popover.Trigger className="first">Tarefas <ListBullets /></Popover.Trigger>
                             </li>
                             <PopoverContent>
+                                <Dialog.Root>
+                                    <Dialog.Trigger title="Adicionar tarefa">
+                                        <Plus />
+                                    </Dialog.Trigger>
+                                    <CreateTaskModal />
+                                </Dialog.Root>
                                 <button
                                     onClick={() => {
                                         setShowAssignedTaskTable(true);

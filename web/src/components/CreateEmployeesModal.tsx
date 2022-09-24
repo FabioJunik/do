@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import axios from 'axios';
 import { FormEvent, useEffect, useState } from 'react';
-import { Content, Overlay, Title, Close } from './styles';
+import { Content, Overlay, Title, Close } from '../styles/modalStyles';
 
 
 interface IRolePros {

@@ -166,6 +166,10 @@ export const PopoverContent = styled(Popover.Content)`
         color: var(--green-900);
         font-weight: bold;
         font-size: 1.2rem;
+
+        svg{
+            margin-top:0.2rem;
+        }
     }
 `
 
