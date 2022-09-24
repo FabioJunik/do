@@ -22,6 +22,17 @@ export function AssignedTaskTable() {
                 setEmployee(response.data)
             })
     }, []);
+
+    function deleteAssignedTask(id: string) {
+        try {
+            axios.delete(`http://localhost:5000/tasks/${id}`)
+            setEmployee(employee.filter(task => task.id !== id));
+        } catch (err) {
+            alert("Erro ao remover tarefa");
+            console.log(err);
+        }
+
+    }
     return (
         <table>
             <thead>
@@ -45,7 +56,7 @@ export function AssignedTaskTable() {
                         <td>{createdAt.toString().substring(0, 10)} às {createdAt.toString().substring(11, 16)}</td>
                         <td>
                             <PencilSimpleLine color="var(--green-700)" />
-                            <Trash color="var(--red-600)" />
+                            <Trash onClick={() => deleteAssignedTask(id)} color="var(--red-600)" />
                         </td>
                     </tr>
                 ))
