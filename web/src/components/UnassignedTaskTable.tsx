@@ -19,6 +19,16 @@ export function UnassignedTaskTable() {
                 setUnassigned(response.data)
             })
     }, []);
+
+    function deleteUnassignedTask(id: string) {
+        try {
+            axios.delete(`http://localhost:5000/unassignedtasks/${id}`)
+            setUnassigned(unassigned.filter(task => task.id === id));
+        } catch (err) {
+            alert("Erro ao remover tarefa")
+        }
+    }
+
     return (
         <table>
             <thead>
@@ -40,7 +50,12 @@ export function UnassignedTaskTable() {
                                 </Dialog.Trigger>
                                 <ToAssignTaskModal description={description} />
                             </Dialog.Root>
-                            <button className="remove">Remover</button>
+                            <button
+                                className="remove"
+                                onClick={() => deleteUnassignedTask(id)}
+                            >
+                                Remover
+                            </button>
                         </td>
                     </tr>
                 ))
