@@ -10,11 +10,13 @@ import { Logo } from "../components/Logo";
 import { Container, Content, PopoverArrow, PopoverContent, Top } from "./styles";
 import { EmployeeTable } from '../components/EmployeeTable';
 import { AssignedTaskTable } from '../components/AssignedTaskTable';
+import { UnassignedTaskTable } from '../components/UnassignedTaskTable';
 
 
 export function Home() {
     const [showEmployeeTable, setShowEmployeeTable] = useState(false);
     const [showAssignedTaskTable, setShowAssignedTaskTable] = useState(true);
+    const [showUnassignedTaskTable, setShowUnassignedTaskTable] = useState(false);
     return (
         <Container>
             <Top>
@@ -34,10 +36,17 @@ export function Home() {
                                 <button
                                     onClick={() => {
                                         setShowAssignedTaskTable(true);
+                                        setShowUnassignedTaskTable(false);
                                         setShowEmployeeTable(false);
                                     }}
                                 >Atribuidas</button>
-                                <button>Não atribuidas</button>
+                                <button
+                                    onClick={() => {
+                                        setShowUnassignedTaskTable(true);
+                                        setShowAssignedTaskTable(false);
+                                        setShowEmployeeTable(false);
+                                    }}
+                                >Não atribuidas</button>
                                 <button>Não finalizadas</button>
                                 <PopoverArrow />
                             </PopoverContent>
@@ -45,8 +54,9 @@ export function Home() {
                         <li>
                             <button
                                 onClick={() => {
-                                    setShowAssignedTaskTable(false);
                                     setShowEmployeeTable(true);
+                                    setShowAssignedTaskTable(false);
+                                    setShowUnassignedTaskTable(false);
                                 }}
                             >
                                 Funcionarios
@@ -64,6 +74,7 @@ export function Home() {
                 </nav>
                 {showEmployeeTable && <EmployeeTable />}
                 {showAssignedTaskTable && <AssignedTaskTable />}
+                {showUnassignedTaskTable && <UnassignedTaskTable />}
             </Content>
         </Container>
     )

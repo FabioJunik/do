@@ -91,14 +91,14 @@ export const Content = styled.div`
 
         th{
             font-weight: 600;
-            padding: 1rem;
+            padding: 1rem 2rem;
             border-bottom: 3px solid var(--green-900);   
         }
 
 
         td{
             border-bottom: 1px solid var(--green-900);   
-            padding: 1rem;
+            padding: 1rem 2rem;
             font-size: 1.4rem;
 
 
@@ -122,6 +122,22 @@ export const Content = styled.div`
             font-weight: 600;
         }
 
+        button{
+            width: 7.5rem;
+            height:2.5rem;
+            margin-right:1rem;
+            
+            font-size: 1.2rem;
+            border-radius: 5px;
+            border:none;
+
+            color: var(--white);
+            background-color: var(--blue-900);
+
+            &.remove{
+                background-color: var(--red-600);
+            }
+        }
         .done{
             background-color: green;
         }
