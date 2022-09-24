@@ -1,6 +1,10 @@
-import axios from "axios";
-import { PencilSimpleLine, Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import * as AlertDialog from '@radix-ui/react-alert-dialog';
+
+import { PencilSimpleLine, Trash } from "phosphor-react";
+import { AlertModal } from "./AlertModal";
+import { AlertTrigger } from "../styles/alertModalStyles";
 
 
 interface ITaskProps {
@@ -56,7 +60,19 @@ export function AssignedTaskTable() {
                         <td>{createdAt.toString().substring(0, 10)} às {createdAt.toString().substring(11, 16)}</td>
                         <td>
                             <PencilSimpleLine color="var(--green-700)" />
-                            <Trash onClick={() => deleteAssignedTask(id)} color="var(--red-600)" />
+                            <AlertDialog.Root>
+                                <AlertTrigger>
+                                    <Trash
+                                        color="var(--red-600)"
+                                    />
+                                </AlertTrigger>
+                                <AlertModal
+                                    deleteId={id}
+                                    title="Eliminar tarefa"
+                                    description="A está ação é inrevercivel deseja continuar ?"
+                                    handleDelete={deleteAssignedTask}
+                                />
+                            </AlertDialog.Root>
                         </td>
                     </tr>
                 ))

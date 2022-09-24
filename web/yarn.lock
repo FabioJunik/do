@@ -336,6 +336,19 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
+"@radix-ui/react-alert-dialog@^1.0.0":
+  "integrity" "sha512-E2N5klf4Mi1QjTIPqSfAPXFPeZG5ZnnBZJ80lcTzJ0fSp8dqLG6bcxrkCrSU4Gm+HVZxxuCPkUHBfntd9aZUcw=="
+  "resolved" "https://registry.npmjs.org/@radix-ui/react-alert-dialog/-/react-alert-dialog-1.0.0.tgz"
+  "version" "1.0.0"
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@radix-ui/primitive" "1.0.0"
+    "@radix-ui/react-compose-refs" "1.0.0"
+    "@radix-ui/react-context" "1.0.0"
+    "@radix-ui/react-dialog" "1.0.0"
+    "@radix-ui/react-primitive" "1.0.0"
+    "@radix-ui/react-slot" "1.0.0"
+
 "@radix-ui/react-arrow@1.0.0":
   "integrity" "sha512-1MUuv24HCdepi41+qfv125EwMuxgQ+U+h0A9K3BjCO/J8nVRREKHHpkD9clwfnjEDk9hgGzCnff4aUKCPiRepw=="
   "resolved" "https://registry.npmjs.org/@radix-ui/react-arrow/-/react-arrow-1.0.0.tgz"
@@ -358,7 +371,7 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
-"@radix-ui/react-dialog@^1.0.0":
+"@radix-ui/react-dialog@^1.0.0", "@radix-ui/react-dialog@1.0.0":
   "integrity" "sha512-Yn9YU+QlHYLWwV1XfKiqnGVpWYWk6MeBVM6x/bcoyPvxgjQGoeT35482viLPctTMWoMw0PoHgqfSox7Ig+957Q=="
   "resolved" "https://registry.npmjs.org/@radix-ui/react-dialog/-/react-dialog-1.0.0.tgz"
   "version" "1.0.0"

@@ -23,6 +23,7 @@ export default createGlobalStyle`
 
         --blue-900: #1b223f;
         
+        --red-200: #fda3a3;
         --red-600: #A72828;
     }
 
