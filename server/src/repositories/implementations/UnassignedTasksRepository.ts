@@ -36,4 +36,9 @@ export class UnassignedTasksRepository implements IUnassignedTasksRepository {
         const tasks = await prisma.unassignedTask.findMany();
         return tasks;
     }
+
+    public async delete(id: string): Promise<UnassignedTask> {
+        const deleteTask = await prisma.unassignedTask.delete({ where: { id } });
+        return deleteTask
+    }
 }
