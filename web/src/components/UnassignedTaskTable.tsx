@@ -48,7 +48,7 @@ export function UnassignedTaskTable() {
                                 <Dialog.Trigger title="Adicionar tarefa">
                                     Atribuir
                                 </Dialog.Trigger>
-                                <ToAssignTaskModal description={description} />
+                                <ToAssignTaskModal id={id} description={description} />
                             </Dialog.Root>
                             <button
                                 className="remove"

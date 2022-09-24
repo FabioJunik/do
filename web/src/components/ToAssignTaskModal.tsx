@@ -4,11 +4,11 @@ import { FormEvent, useEffect, useState } from 'react';
 import { Content, Overlay, Title, Close } from '../styles/modalStyles';
 
 interface IAssignTaskProps {
+    id: string;
     description: string;
 }
 
-
-export function ToAssignTaskModal({ description }: IAssignTaskProps) {
+export function ToAssignTaskModal({ id, description }: IAssignTaskProps) {
     const [employee, setEmployee] = useState([]);
 
     useEffect(() => {
@@ -18,16 +18,41 @@ export function ToAssignTaskModal({ description }: IAssignTaskProps) {
             })
     }, [])
 
+    async function handleToAssignedTask(event: FormEvent) {
+
+        event.preventDefault();
+
+        const formData = new FormData(event.target as HTMLFormElement);
+        const data = Object.fromEntries(formData)
+
+        try {
+
+            await axios.post("http://localhost:5000/tasks", {
+                employeeId: data.employee,
+                description
+            });
+
+            axios.delete(`http://localhost:5000/unassignedtasks/${id}`)
+
+            console.log(data.employee)
+            alert("Tarefa atribuida com sucesso !");
+        } catch (err) {
+            console.log(err)
+            alert("Erro ao atribuir a tarefa!")
+        }
+
+    }
+
     return (
         <Dialog.Portal>
             <Overlay>
                 <Content>
                     <Title>Atribuir tarefa</Title>
-                    <form>
+                    <form onSubmit={handleToAssignedTask}>
                         <div>
-                            <label htmlFor="role">Funcionario*</label>
-                            <select id='role' name='role' defaultValue=''>
-                                <option disabled selected>A tarefa sera atribuida à ...</option>
+                            <label htmlFor="employee">Funcionario*</label>
+                            <select id='employee' name='employee' defaultValue=''>
+                                <option disabled selected value="">A tarefa sera atribuida à ...</option>
                                 {employee && employee.map(({ id, name }) => (
                                     <option value={id} key={id}>{name}</option>
                                 ))}
