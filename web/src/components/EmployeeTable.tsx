@@ -1,7 +1,11 @@
-import axios from "axios";
-import { PencilSimpleLine, Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { api } from "../service/api";
+
+import * as  AlertDialog from "@radix-ui/react-alert-dialog";
+import { PencilSimpleLine, Trash } from "phosphor-react";
+
+import { AlertTrigger } from "../styles/alertModalStyles";
+import { AlertModal } from "./AlertModal";
 
 
 interface IEmployeeProps {
@@ -22,6 +26,17 @@ export function EmployeeTable() {
                 setEmployee(response.data)
             })
     }, []);
+
+    function deleteEmployee(id: string) {
+        try {
+            api.delete(`/employees/${id}`)
+            setEmployee(employee.filter(task => task.id !== id));
+        } catch (err) {
+            alert("Erro ao remover tarefa");
+            console.log(err);
+        }
+
+    }
     return (
         <table>
             <thead>
@@ -40,7 +55,20 @@ export function EmployeeTable() {
                         <td>{role.name}</td>
                         <td>
                             <PencilSimpleLine color="var(--green-700)" />
-                            <Trash color="var(--red-600)" />
+
+                            <AlertDialog.Root>
+                                <AlertTrigger>
+                                    <Trash
+                                        color="var(--red-600)"
+                                    />
+                                </AlertTrigger>
+                                <AlertModal
+                                    deleteId={id}
+                                    title="Eliminar Funcionário"
+                                    description="A está ação é inrevercivel deseja continuar ?"
+                                    handleDelete={deleteEmployee}
+                                />
+                            </AlertDialog.Root>
                         </td>
                     </tr>
                 ))

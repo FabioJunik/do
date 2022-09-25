@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { api } from "../service/api";
+
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 
 import { PencilSimpleLine, Trash } from "phosphor-react";
 import { AlertModal } from "./AlertModal";
 import { AlertTrigger } from "../styles/alertModalStyles";
-import { api } from "../service/api";
 
 
 interface ITaskProps {
@@ -30,7 +30,7 @@ export function AssignedTaskTable() {
 
     function deleteAssignedTask(id: string) {
         try {
-            axios.delete(`http://localhost:5000/tasks/${id}`)
+            api.delete(`/tasks/${id}`)
             setEmployee(employee.filter(task => task.id !== id));
         } catch (err) {
             alert("Erro ao remover tarefa");
