@@ -1,5 +1,7 @@
 import { Router } from 'express';
+import { EndureAuthenticated } from './middlewares/endureAuthenticated';
 import { createEmployeeComtroller } from './useCases/createEmployee';
+import { authenticationEmployeeComtroller } from './useCases/Employee/Authentication';
 import { listEmployeesComtroller } from './useCases/ListEmployee';
 import { listRolesComtroller } from './useCases/Role/List';
 import { createTaskComtroller } from './useCases/Task/Create';
@@ -10,6 +12,14 @@ import { deleteUnassignedTaskComtroller } from './useCases/UnassignedTask/Delete
 import { listUnassignedTasksComtroller } from './useCases/UnassignedTask/List';
 
 const router = Router();
+
+const endureAuthenticated = new EndureAuthenticated();
+
+router.post("/employees/authenticate", (request, response) =>
+    authenticationEmployeeComtroller.handle(request, response)
+);
+
+router.use(endureAuthenticated.auth);
 
 router.get('/', (request, response) => {
     return response.send({ message: 'Hello code 😎' });
