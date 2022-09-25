@@ -19,6 +19,7 @@ interface IEmployeesRepository {
     findByEmail: (email: string) => Promise<Employee>;
     list: () => Promise<ListEmployeeProps[]>;
     save: (employee: ICreateEmployeeDTO) => Promise<Employee>
+    delete: (id: string) => Promise<Employee>;
 }
 
 export { IEmployeesRepository, ICreateEmployeeDTO, ListEmployeeProps }

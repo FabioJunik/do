@@ -66,5 +66,10 @@ export class EmployeesRepository implements IEmployeesRepository {
         return employee;
     };
 
+    public async delete(id: string): Promise<Employee> {
+        const employee = await prisma.employee.delete({ where: { id } })
+
+        return employee;
+    };
 
 }

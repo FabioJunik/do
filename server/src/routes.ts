@@ -10,6 +10,7 @@ import { listTasksComtroller } from './useCases/Task/List';
 import { createUnassignedTaskComtroller } from './useCases/UnassignedTask/Create';
 import { deleteUnassignedTaskComtroller } from './useCases/UnassignedTask/Delete';
 import { listUnassignedTasksComtroller } from './useCases/UnassignedTask/List';
+import { deleteEmployeeComtroller } from './useCases/Employee/Delete';
 
 const router = Router();
 
@@ -31,6 +32,10 @@ router.post('/employees', (request, response) => {
 
 router.get('/employees', (request, response) => {
     return listEmployeesComtroller.handle(request, response);
+})
+
+router.delete('/employees/:id', (request, response) => {
+    return deleteEmployeeComtroller.handle(request, response);
 })
 
 router.post('/tasks', (request, response) => {
