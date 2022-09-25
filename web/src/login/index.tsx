@@ -1,6 +1,7 @@
 import axios from "axios";
 import { FormEvent, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import { Container, FormStyled } from "./styles";
 
 
 export function Login() {
@@ -18,45 +19,22 @@ export function Login() {
             password: password.toString(),
         });
 
-        // let token = '';
-
-        // try {
-        //     await axios.post("http://localhost:5000/employees/authenticate", {
-        //         email: data.email,
-        //         password: data.password
-        //     }).then((response) => { token = response.data });
-
-        //     await axios.post("http://localhost:5000/employees/authenticate", {
-        //         email: data.email,
-        //         password: data.password
-        //     }, {
-        //         headers: {
-        //             authorization: 'Bearer ' + token
-        //         }
-        //     });
-        //     console.log(token);
-        //     // location.href = "/home";
-
-        // } catch (err) {
-        //     console.log(err);
-        // }
-
-
     }
 
     return (
-        <div>
-            <form onSubmit={handleLogin}>
+        <Container>
+            <FormStyled onSubmit={handleLogin}>
+                <h1>Login</h1>
                 <input
                     type="email"
-                    placeholder="email"
+                    placeholder="Email"
                     name="email"
                     id="email"
                 />
-                <input type="password" placeholder="password" name="password" id="password" />
+                <input type="password" placeholder="Password" name="password" id="password" />
 
                 <button type="submit">Entrar</button>
-            </form>
-        </div>
+            </FormStyled>
+        </Container>
     )
 }
