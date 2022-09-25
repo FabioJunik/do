@@ -1,6 +1,7 @@
-import * as Dialog from "@radix-ui/react-dialog";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { api } from "../service/api";
+
+import * as Dialog from "@radix-ui/react-dialog";
 import { ToAssignTaskModal } from "./ToAssignTaskModal";
 
 
@@ -14,7 +15,7 @@ export function UnassignedTaskTable() {
     const [unassigned, setUnassigned] = useState<IUnassignedTaskProps[]>([]);
 
     useEffect(() => {
-        axios("http://localhost:5000/unassignedtasks")
+        api.get("/unassignedtasks")
             .then(response => {
                 setUnassigned(response.data)
             })
@@ -22,7 +23,7 @@ export function UnassignedTaskTable() {
 
     function deleteUnassignedTask(id: string) {
         try {
-            axios.delete(`http://localhost:5000/unassignedtasks/${id}`)
+            api.delete(`/unassignedtasks/${id}`)
             setUnassigned(unassigned.filter(task => task.id === id));
         } catch (err) {
             alert("Erro ao remover tarefa")
@@ -43,7 +44,7 @@ export function UnassignedTaskTable() {
                     <tr key={id}>
                         <td>{description}</td>
                         <td>{createdAt.toString().substring(0, 10)} às {createdAt.toString().substring(11, 16)}</td>
-                        <td>
+                        <td className="optionsButton">
                             <Dialog.Root>
                                 <Dialog.Trigger title="Adicionar tarefa">
                                     Atribuir

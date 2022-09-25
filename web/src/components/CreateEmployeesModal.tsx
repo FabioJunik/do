@@ -1,6 +1,7 @@
-import * as Dialog from '@radix-ui/react-dialog';
-import axios from 'axios';
 import { FormEvent, useEffect, useState } from 'react';
+import { api } from '../service/api';
+
+import * as Dialog from '@radix-ui/react-dialog';
 import { Content, Overlay, Title, Close } from '../styles/modalStyles';
 
 
@@ -26,7 +27,7 @@ export function CreateEmployeesModal() {
     })
 
     useEffect(() => {
-        axios("http://localhost:5000/roles")
+        api.get("/roles")
             .then(response => {
                 setRole(response.data);
             })
@@ -39,7 +40,7 @@ export function CreateEmployeesModal() {
         const data = Object.fromEntries(formData)
 
         try {
-            await axios.post("http://localhost:5000/employees", {
+            await api.post("/employees", {
                 name: data.name,
                 email: data.email,
                 roleId: data.role,

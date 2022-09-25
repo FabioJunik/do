@@ -1,6 +1,7 @@
-import * as Dialog from '@radix-ui/react-dialog';
-import axios from 'axios';
 import { FormEvent, useState } from 'react';
+import { api } from '../service/api';
+
+import * as Dialog from '@radix-ui/react-dialog';
 import { Content, Overlay, Title, Close } from '../styles/modalStyles';
 
 
@@ -13,7 +14,7 @@ export function CreateTaskModal() {
         event.preventDefault();
 
         try {
-            await axios.post("http://localhost:5000/unassignedTasks", {
+            await api.post("/unassignedTasks", {
                 description
             })
 

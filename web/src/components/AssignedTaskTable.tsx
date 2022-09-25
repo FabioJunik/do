@@ -5,6 +5,7 @@ import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import { PencilSimpleLine, Trash } from "phosphor-react";
 import { AlertModal } from "./AlertModal";
 import { AlertTrigger } from "../styles/alertModalStyles";
+import { api } from "../service/api";
 
 
 interface ITaskProps {
@@ -21,7 +22,7 @@ export function AssignedTaskTable() {
     const [employee, setEmployee] = useState<ITaskProps[]>([]);
 
     useEffect(() => {
-        axios("http://localhost:5000/tasks")
+        api.get("/tasks")
             .then(response => {
                 setEmployee(response.data)
             })

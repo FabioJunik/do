@@ -1,6 +1,7 @@
-import * as Dialog from '@radix-ui/react-dialog';
-import axios from 'axios';
 import { FormEvent, useEffect, useState } from 'react';
+import { api } from '../service/api';
+
+import * as Dialog from '@radix-ui/react-dialog';
 import { Content, Overlay, Title, Close } from '../styles/modalStyles';
 
 interface IAssignTaskProps {
@@ -12,7 +13,7 @@ export function ToAssignTaskModal({ id, description }: IAssignTaskProps) {
     const [employee, setEmployee] = useState([]);
 
     useEffect(() => {
-        axios("http://localhost:5000/employees")
+        api.get("/employees")
             .then(response => {
                 setEmployee(response.data);
             })
@@ -27,12 +28,12 @@ export function ToAssignTaskModal({ id, description }: IAssignTaskProps) {
 
         try {
 
-            await axios.post("http://localhost:5000/tasks", {
+            await api.post("/tasks", {
                 employeeId: data.employee,
                 description
             });
 
-            axios.delete(`http://localhost:5000/unassignedtasks/${id}`)
+            api.delete(`/unassignedtasks/${id}`)
 
             console.log(data.employee)
             alert("Tarefa atribuida com sucesso !");

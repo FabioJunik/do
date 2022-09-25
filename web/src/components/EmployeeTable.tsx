@@ -1,6 +1,7 @@
 import axios from "axios";
 import { PencilSimpleLine, Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
+import { api } from "../service/api";
 
 
 interface IEmployeeProps {
@@ -16,7 +17,7 @@ export function EmployeeTable() {
     const [employee, setEmployee] = useState<IEmployeeProps[]>([]);
 
     useEffect(() => {
-        axios("http://localhost:5000/employees")
+        api.get("/employees")
             .then(response => {
                 setEmployee(response.data)
             })

@@ -122,7 +122,7 @@ export const Content = styled.div`
             font-weight: 600;
         }
 
-        &.optionsButton button{
+        .optionsButton button{
             width: 7.5rem;
             height:2.5rem;
             margin-right:1rem;
