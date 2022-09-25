@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { EndureAuthenticated } from './middlewares/endureAuthenticated';
-import { createEmployeeComtroller } from './useCases/createEmployee';
+import { createEmployeeComtroller } from './useCases/Employee/Create';
 import { authenticationEmployeeComtroller } from './useCases/Employee/Authentication';
-import { listEmployeesComtroller } from './useCases/ListEmployee';
+import { listEmployeesComtroller } from './useCases/Employee/List';
 import { listRolesComtroller } from './useCases/Role/List';
 import { createTaskComtroller } from './useCases/Task/Create';
 import { deleteTaskComtroller } from './useCases/Task/Delete';

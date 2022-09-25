@@ -1,4 +1,4 @@
-import { EmployeesRepository } from "../../repositories/implementations/EmployeesRepository";
+import { EmployeesRepository } from "../../../repositories/implementations/EmployeesRepository";
 import { ListEmployeesUseCase } from "./ListEmployeesUseCase";
 import { ListEmployeesComtroller } from "./ListEmployessComtroller";
 

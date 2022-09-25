@@ -1,4 +1,4 @@
-import { IEmployeesRepository } from "../../repositories/IEmployeesRepository";
+import { IEmployeesRepository } from "../../../repositories/IEmployeesRepository";
 
 interface IRequest {
     roleId: string;

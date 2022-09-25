@@ -1,4 +1,4 @@
-import { EmployeesRepository } from "../../repositories/implementations/EmployeesRepository";
+import { EmployeesRepository } from "../../../repositories/implementations/EmployeesRepository";
 
 
 export class ListEmployeesUseCase {
