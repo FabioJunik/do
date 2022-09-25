@@ -20,7 +20,10 @@ export class AuthenticationEmployeeUseCase {
             expiresIn: "1d"
         })
 
-        return token;
+        return {
+            token,
+            employee
+        };
 
     }
 }
