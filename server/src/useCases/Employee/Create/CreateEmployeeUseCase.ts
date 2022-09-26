@@ -5,19 +5,25 @@ interface IRequest {
     name: string;
     email: string;
     password: string;
-    photoUrl: string;
 }
 
 export class CreateEmployeeUseCase {
     constructor(private employeeRepository: IEmployeesRepository) { }
 
-    async execute(employee: IRequest) {
-        const employeeFound = await this.employeeRepository.findByEmail(employee.email);
+    async execute({ name, email, password, roleId }: IRequest) {
+
+        const emptyField = name === '' || email === '';
+
+        if (emptyField) {
+            throw new Error("Fill in all mandatory fields")
+        }
+
+        const employeeFound = await this.employeeRepository.findByEmail(email);
 
         if (employeeFound)
             throw new Error("Employee already exists")
 
-        this.employeeRepository.save(employee);
+        this.employeeRepository.save({ name, email, password, roleId, });
 
     }
 }

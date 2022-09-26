@@ -5,7 +5,6 @@ interface ICreateEmployeeDTO {
     name: string;
     email: string;
     password: string;
-    photoUrl: string;
 }
 
 type ListEmployeeProps = Omit<Employee, "roleId" | "password"> & {

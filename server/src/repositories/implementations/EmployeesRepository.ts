@@ -45,7 +45,7 @@ export class EmployeesRepository implements IEmployeesRepository {
                 name: employee.name,
                 email: employee.email,
                 password: employee.password,
-                photoUrl: employee.photoUrl,
+                photoUrl: "https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png"
             }
         })
 
