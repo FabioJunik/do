@@ -139,12 +139,17 @@ export const Content = styled.div`
             }
         }
         .done{
-            background-color: green;
+            background-color: var(--green-500);
         }
 
-        .processing{
+        .undone{
+            background-color: var(--red-600);
+        }
+
+        .pending{
             background-color: orange;
         }
+
     }
 `;
 

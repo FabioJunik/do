@@ -11,7 +11,8 @@ import { AlertTrigger } from "../styles/alertModalStyles";
 interface ITaskProps {
     id: string;
     description: string;
-    done: boolean;
+    state: string;
+    updatedAt: Date;
     createdAt: Date;
     employee: {
         name: string;
@@ -38,6 +39,8 @@ export function AssignedTaskTable() {
         }
 
     }
+
+    console.log(employee)
     return (
         <table>
             <thead>
@@ -50,13 +53,16 @@ export function AssignedTaskTable() {
                 </tr>
             </thead>
             <tbody>
-                {employee && employee.map(({ id, description, employee, done, createdAt }) => (
+                {employee && employee.map(({ id, description, employee, state, createdAt }) => (
                     <tr key={id}>
                         <td>{employee.name}</td>
                         <td>{description}</td>
-                        <td>{done ?
-                            <span className='done'>Finalizada</span> :
-                            <span className='processing'>Processando</span>}
+                        <td>
+                            <span className={state}>
+                                {state === "pending" && 'Processando'}
+                                {state === "done" && 'Finalizada'}
+                                {state === "undone" && 'Não finalizada'}
+                            </span>
                         </td>
                         <td>{createdAt.toString().substring(0, 10)} às {createdAt.toString().substring(11, 16)}</td>
                         <td>
