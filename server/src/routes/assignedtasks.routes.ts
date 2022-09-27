@@ -1,20 +1,20 @@
 import { Router } from 'express';
-import { createTaskComtroller } from '../useCases/Task/Create';
-import { deleteTaskComtroller } from '../useCases/Task/Delete';
-import { listTasksComtroller } from '../useCases/Task/List';
+import { createAssignedTaskComtroller } from '../useCases/AssignedTask/Create';
+import { deleteAssignedTaskComtroller } from '../useCases/AssignedTask/Delete';
+import { listAssignedTasksComtroller } from '../useCases/AssignedTask/List';
 
 const assignedTasksRoutes = Router();
 
 assignedTasksRoutes.post('/', (request, response) => {
-    return createTaskComtroller.handle(request, response);
+    return createAssignedTaskComtroller.handle(request, response);
 });
 
 assignedTasksRoutes.get('/', (request, response) => {
-    return listTasksComtroller.handle(request, response);
+    return listAssignedTasksComtroller.handle(request, response);
 });
 
 assignedTasksRoutes.delete('/:id', (request, response) => {
-    return deleteTaskComtroller.handle(request, response);
+    return deleteAssignedTaskComtroller.handle(request, response);
 });
 
 export { assignedTasksRoutes };

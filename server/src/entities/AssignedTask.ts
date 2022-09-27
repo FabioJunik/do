@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 
-export class Task {
+export class AssignedTask {
     public readonly id: string;
 
     public employeeId: string;
@@ -9,7 +9,7 @@ export class Task {
     public createdAt: Date;
 
 
-    constructor(props: Omit<Task, "id">, id?: string) {
+    constructor(props: Omit<AssignedTask, "id">, id?: string) {
         Object.assign(this, props);
 
         if (!id)

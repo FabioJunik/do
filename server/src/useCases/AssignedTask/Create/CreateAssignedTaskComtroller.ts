@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { CreateTaskUseCase } from "./CreateTaskUseCase";
+import { CreateAssignedTaskUseCase } from "./CreateAssignedTaskUseCase";
 
 
-export class CreateTaskComtroller {
-    constructor(private createTaskUseCase: CreateTaskUseCase) { }
+export class CreateAssignedTaskComtroller {
+    constructor(private createTaskUseCase: CreateAssignedTaskUseCase) { }
 
     async handle(request: Request, response: Response) {
         const { employeeId, description } = request.body;

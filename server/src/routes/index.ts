@@ -17,7 +17,7 @@ router.post("/employees/authenticate", (request, response) =>
 
 router.use(endureAuthenticated.auth);
 router.use("/employees", employeesRoutes)
-router.use("/tasks", assignedTasksRoutes);
+router.use("/assignedtasks", assignedTasksRoutes);
 router.use("/roles", rolesRoutes)
 router.use("/unassignedtasks", unassignedTasksRoutes);
 

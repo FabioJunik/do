@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { Task } from "../../entities/Task";
 import { UnassignedTask } from "../../entities/UnassignedTask";
 import { IUnassignedTasksRepository } from "../IUnassignedTasksRepository";
 
@@ -7,7 +6,7 @@ import { IUnassignedTasksRepository } from "../IUnassignedTasksRepository";
 const prisma = new PrismaClient();
 
 export class UnassignedTasksRepository implements IUnassignedTasksRepository {
-    private tasks: Task[];
+    private tasks: UnassignedTask[];
 
     public static INSTANCE: UnassignedTasksRepository;
 
