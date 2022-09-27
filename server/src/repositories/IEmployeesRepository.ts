@@ -7,6 +7,10 @@ interface ICreateEmployeeDTO {
     password: string;
 }
 
+type IUpdateEmployeeDTO = ICreateEmployeeDTO & {
+    id: string;
+};
+
 type ListEmployeeProps = Omit<Employee, "roleId" | "password"> & {
     role: {
         name: string;
@@ -19,6 +23,7 @@ interface IEmployeesRepository {
     list: () => Promise<ListEmployeeProps[]>;
     save: (employee: ICreateEmployeeDTO) => Promise<Employee>
     delete: (id: string) => Promise<Employee>;
+    update: (employee: IUpdateEmployeeDTO) => Promise<Employee>;
 }
 
-export { IEmployeesRepository, ICreateEmployeeDTO, ListEmployeeProps }
+export { IEmployeesRepository, ICreateEmployeeDTO, ListEmployeeProps, IUpdateEmployeeDTO }

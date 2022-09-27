@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Employee } from "../../entities/Employee";
-import { ICreateEmployeeDTO, IEmployeesRepository, ListEmployeeProps } from "../IEmployeesRepository";
+import { ICreateEmployeeDTO, IEmployeesRepository, IUpdateEmployeeDTO, ListEmployeeProps } from "../IEmployeesRepository";
 
 const prisma = new PrismaClient();
 
@@ -72,4 +72,20 @@ export class EmployeesRepository implements IEmployeesRepository {
         return employee;
     };
 
+    public async update(employee: IUpdateEmployeeDTO): Promise<Employee> {
+
+        const employeeUpdated = await prisma.employee.update({
+            where: {
+                id: employee.id
+            },
+            data: {
+                roleId: employee.roleId,
+                name: employee.name,
+                email: employee.email,
+                password: employee.password,
+            }
+        })
+
+        return employeeUpdated;
+    }
 }
