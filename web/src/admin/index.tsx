@@ -4,7 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import * as Popover from '@radix-ui/react-popover';
 import { ListBullets, Plus, UserPlus } from "phosphor-react";
 
-import { CreateEmployeesModal } from "../components/CreateEmployeesModal";
+import { EmployeeModal } from "../components/EmployeesModal";
 import { Avatar } from "../components/Avatar";
 import { Logo } from "../components/Logo";
 import { Container, Content, PopoverArrow, PopoverContent, Top } from "./styles";
@@ -75,7 +75,7 @@ export function Home() {
                                     Adicionar <UserPlus />
                                 </Dialog.Trigger>
                             </li>
-                            <CreateEmployeesModal />
+                            <EmployeeModal />
                         </Dialog.Root>
                     </ul>
                 </nav>

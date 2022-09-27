@@ -17,7 +17,14 @@ interface IFormDataProps {
     password: string;
 }
 
-export function CreateEmployeesModal() {
+interface IUpdateProps {
+    id: string;
+    name: string;
+    email: string;
+    roleId: string;
+}
+
+export function UpdateEmployeeModal({ id, name, email, roleId }: IUpdateProps) {
     const [role, setRole] = useState<IRolePros[]>([]);
     const [error, setError] = useState('');
     const [dataForm, setDataForm] = useState<IFormDataProps>({
@@ -37,25 +44,23 @@ export function CreateEmployeesModal() {
     async function handleCreateEmployee(event: FormEvent) {
         event.preventDefault();
 
-        const formData = new FormData(event.target as HTMLFormElement);
-        const data = Object.fromEntries(formData)
+        const { name, email, password, role: roleId } = dataForm;
 
-        const { name, email, role, password } = dataForm;
+        console.log(roleId);
 
-        const emptyField = name === '' || data.name === '';
+        const emptyField = name && email && roleId;
 
-        if (emptyField) {
+        if (!emptyField) {
             setError('Preencha todos os campos obrigatorios')
             return
         }
 
         try {
-            await api.post("/employees", {
+            await api.put("/employees", {
                 name,
                 email,
-                roleId: data.role,
+                roleId,
                 password,
-                photoUrl: ''
             })
 
             setDataForm({
@@ -103,7 +108,12 @@ export function CreateEmployeesModal() {
                         </div>
                         <div>
                             <label htmlFor="role">Cargo*</label>
-                            <select id='role' name='role' defaultValue=''>
+                            <select
+                                id='role'
+                                name='role'
+                                defaultValue=''
+                                onChange={(e) => setDataForm({ ...dataForm, role: e.target.value })}
+                            >
                                 <option disabled selected>O funcionario exerce a função de ?</option>
                                 {role.map(({ id, name }) => (
                                     <option value={id} key={id}>{name}</option>

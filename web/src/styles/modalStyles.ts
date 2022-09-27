@@ -11,6 +11,11 @@ export const Overlay = styled(Dialog.Overlay)`
     justify-content:center;
 `;
 
+export const DialogTrigger = styled(Dialog.Trigger)`    
+    background-color: transparent;
+    border: none;
+`
+
 export const Content = styled(Dialog.Content)`
     width: 40rem;
     background: white;

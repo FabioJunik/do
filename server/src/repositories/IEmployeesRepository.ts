@@ -7,12 +7,13 @@ interface ICreateEmployeeDTO {
     password: string;
 }
 
-type IUpdateEmployeeDTO = ICreateEmployeeDTO & {
+type IUpdateEmployeeDTO = Omit<ICreateEmployeeDTO, "password"> & {
     id: string;
 };
 
 type ListEmployeeProps = Omit<Employee, "roleId" | "password"> & {
     role: {
+        id: string;
         name: string;
     }
 }

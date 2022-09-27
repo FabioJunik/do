@@ -29,6 +29,7 @@ export class EmployeesRepository implements IEmployeesRepository {
                 photoUrl: true,
                 role: {
                     select: {
+                        id: true,
                         name: true
                     }
                 },
@@ -82,7 +83,6 @@ export class EmployeesRepository implements IEmployeesRepository {
                 roleId: employee.roleId,
                 name: employee.name,
                 email: employee.email,
-                password: employee.password,
             }
         })
 

@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { api } from "../service/api";
 
+import * as Dialog from '@radix-ui/react-dialog';
 import * as  AlertDialog from "@radix-ui/react-alert-dialog";
 import { PencilSimpleLine, Trash } from "phosphor-react";
 
 import { AlertTrigger } from "../styles/alertModalStyles";
 import { AlertModal } from "./AlertModal";
+import { EmployeeModal } from "./EmployeesModal";
+import { DialogTrigger } from "../styles/modalStyles";
 
 
 interface IEmployeeProps {
@@ -13,6 +16,7 @@ interface IEmployeeProps {
     name: string;
     email: string;
     role: {
+        id: string;
         name: string;
     }
 }
@@ -54,7 +58,13 @@ export function EmployeeTable() {
                         <td>{email}</td>
                         <td>{role.name}</td>
                         <td>
-                            <PencilSimpleLine color="var(--green-700)" />
+                            <Dialog.Root>
+                                <DialogTrigger className="last">
+                                    <PencilSimpleLine color="var(--green-700)" />
+                                </DialogTrigger>
+
+                                <EmployeeModal id={id} name={name} email={email} roleId={role.id} />
+                            </Dialog.Root>
 
                             <AlertDialog.Root>
                                 <AlertTrigger>
