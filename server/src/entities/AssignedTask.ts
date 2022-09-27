@@ -5,7 +5,8 @@ export class AssignedTask {
 
     public employeeId: string;
     public description: string;
-    public done: boolean;
+    public state: string;
+    public updateAt: Date;
     public createdAt: Date;
 
 

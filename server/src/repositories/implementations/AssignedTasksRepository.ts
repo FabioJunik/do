@@ -37,7 +37,8 @@ export class AssignedTasksRepository implements IAssignedTasksRepository {
             select: {
                 id: true,
                 description: true,
-                done: true,
+                state: true,
+                updateAt: true,
                 createdAt: true,
                 employee: {
                     select: {

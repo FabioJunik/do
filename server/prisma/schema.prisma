@@ -36,7 +36,8 @@ model AssignedTask {
   id          String   @id @default(uuid())
   employeeId  String
   description String
-  done        Boolean  @default(false)
+  state       String   @default("pending")
+  updateAt    DateTime @default(now())
   createdAt   DateTime @default(now())
 
   employee Employee @relation(fields: [employeeId], references: [id])

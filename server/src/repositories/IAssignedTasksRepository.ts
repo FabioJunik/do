@@ -9,7 +9,8 @@ interface ICreateAssignedTaskDTO {
 interface IListAssignedTaskDTO {
     id: string;
     description: string;
-    done: boolean;
+    state: string,
+    updateAt: Date,
     createdAt: Date;
     employee: {
         name: string;
