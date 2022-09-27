@@ -22,7 +22,7 @@ export function AssignedTaskTable() {
     const [employee, setEmployee] = useState<ITaskProps[]>([]);
 
     useEffect(() => {
-        api.get("/tasks")
+        api.get("/assignedtasks")
             .then(response => {
                 setEmployee(response.data)
             })
@@ -30,7 +30,7 @@ export function AssignedTaskTable() {
 
     function deleteAssignedTask(id: string) {
         try {
-            api.delete(`/tasks/${id}`)
+            api.delete(`/assignedtasks/${id}`)
             setEmployee(employee.filter(task => task.id !== id));
         } catch (err) {
             alert("Erro ao remover tarefa");

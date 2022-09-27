@@ -28,7 +28,7 @@ export function ToAssignTaskModal({ id, description }: IAssignTaskProps) {
 
         try {
 
-            await api.post("/tasks", {
+            await api.post("/assignedtasks", {
                 employeeId: data.employee,
                 description
             });
