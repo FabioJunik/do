@@ -59,6 +59,11 @@ export const Content = styled(Dialog.Content)`
             }
         }
     }
+
+    .error{
+        color: var(--red-600);
+        font-size: 1.2rem;
+    }
 `;
 
 export const Title = styled(Dialog.Title)`

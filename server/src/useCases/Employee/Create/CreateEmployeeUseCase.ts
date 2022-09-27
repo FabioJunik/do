@@ -12,9 +12,9 @@ export class CreateEmployeeUseCase {
 
     async execute({ name, email, password, roleId }: IRequest) {
 
-        const emptyField = name === '' || email === '';
+        const emptyField = name && email;
 
-        if (emptyField) {
+        if (!emptyField) {
             throw new Error("Fill in all mandatory fields")
         }
 
@@ -23,7 +23,7 @@ export class CreateEmployeeUseCase {
         if (employeeFound)
             throw new Error("Employee already exists")
 
-        this.employeeRepository.save({ name, email, password, roleId, });
+        this.employeeRepository.save({ name, email, password, roleId });
 
     }
 }

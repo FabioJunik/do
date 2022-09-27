@@ -19,6 +19,7 @@ interface IFormDataProps {
 
 export function CreateEmployeesModal() {
     const [role, setRole] = useState<IRolePros[]>([]);
+    const [error, setError] = useState('');
     const [dataForm, setDataForm] = useState<IFormDataProps>({
         name: '',
         email: '',
@@ -39,12 +40,21 @@ export function CreateEmployeesModal() {
         const formData = new FormData(event.target as HTMLFormElement);
         const data = Object.fromEntries(formData)
 
+        const { name, email, role, password } = dataForm;
+
+        const emptyField = name === '' || data.name === '';
+
+        if (emptyField) {
+            setError('Preencha todos os campos obrigatorios')
+            return
+        }
+
         try {
             await api.post("/employees", {
-                name: data.name,
-                email: data.email,
+                name,
+                email,
                 roleId: data.role,
-                password: data.password,
+                password,
                 photoUrl: ''
             })
 
@@ -85,10 +95,20 @@ export function CreateEmployeesModal() {
                             <input
                                 onChange={(e) => setDataForm({ ...dataForm, email: e.target.value })}
                                 value={dataForm.email}
+                                type="email"
                                 id='email'
                                 name='email'
                                 placeholder="user@mail.com"
                             />
+                        </div>
+                        <div>
+                            <label htmlFor="role">Cargo*</label>
+                            <select id='role' name='role' defaultValue=''>
+                                <option disabled selected>O funcionario exerce a função de ?</option>
+                                {role.map(({ id, name }) => (
+                                    <option value={id} key={id}>{name}</option>
+                                ))}
+                            </select>
                         </div>
                         <div>
                             <label htmlFor="password">Palavra Passe</label>
@@ -101,15 +121,7 @@ export function CreateEmployeesModal() {
                                 placeholder="Tua senha"
                             />
                         </div>
-                        <div>
-                            <label htmlFor="role">Cargo*</label>
-                            <select id='role' name='role' defaultValue=''>
-                                <option disabled selected>O funcionario exerce a função de ?</option>
-                                {role.map(({ id, name }) => (
-                                    <option value={id} key={id}>{name}</option>
-                                ))}
-                            </select>
-                        </div>
+                        <p className='error'>{error}</p>
                         <div className="options">
                             <Close>Cancelar</Close>
                             <button type="submit">Cadastrar</button>
