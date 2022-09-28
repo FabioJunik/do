@@ -1,5 +1,5 @@
-import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { api } from "../service/api";
 
 
 interface IAuthContextProps {
@@ -15,12 +15,9 @@ interface ISingInProps {
 
 export const AuthContext = createContext({} as IAuthContextProps)
 
-
 export function AuthProvider({ children }: { children: JSX.Element }) {
     const [user, setUser] = useState({});
     const isAuthenticated = !!user;
-    let token = '';
-
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -32,20 +29,29 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
 
     }, [])
 
-    async function singIn({ email, password }: ISingInProps) {
-        await axios.post("http://localhost:5000/employees/authenticate", {
-            email,
-            password
-        }).then(response => {
-            token = response.data.token;
-            console.log(response.data.employee)
-            setUser(response.data.employee)
-        });
-
+    function redirect(token: string, user: {}, path: string) {
+        setUser(user);
         localStorage.setItem("token", token.toString());
         localStorage.setItem("user", JSON.stringify(user));
 
-        location.href = "/home";
+        location.href = path;
+    }
+
+    async function singIn(data: ISingInProps) {
+        try {
+            await api.post("/employees/authenticate", data).then(response => {
+                redirect(response.data.token, response.data.employee, "/employee/home")
+            });
+        } catch (err) {
+            try {
+                await api.post("/admins/authenticate", data).then(response => {
+                    redirect(response.data.token, response.data.admin, "/admin/home")
+                });
+            } catch (err) {
+                alert("Email ou senha incorreta")
+                console.log(err)
+            }
+        }
     }
 
     return (
