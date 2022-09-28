@@ -11,8 +11,8 @@ model Admin {
   id       String @id @default(uuid())
   name     String
   email    String
-  password String
-  photoUrl String
+  password String @default("12bc34de")
+  photoUrl String @default("./tmp/uploads/avatar/avatar_default.png")
 }
 
 model Role {
