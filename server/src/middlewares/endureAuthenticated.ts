@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { AdminsRepository } from "../repositories/implementations/AdminsRepository";
 import { EmployeesRepository } from "../repositories/implementations/EmployeesRepository";
 
 type JwtPayloadProps = {
@@ -19,16 +20,24 @@ export class EndureAuthenticated {
 
       const { id } = jwt.verify(token, "321e61c589079ea0fe776cc96eaa7fc7") as JwtPayloadProps;
 
-      const repository = EmployeesRepository.getINSTANCE();
-      const employee = await repository.findById(id);
+      const adminsRepository = AdminsRepository.getINSTANCE();
+      const admin = await adminsRepository.findById(id);
 
-      if (!employee) {
-        throw new Error("unauthorized");
+      if (admin) {
+        request.adminId = admin.id;
+        next();
       }
 
-      request.employee = employee.id;
+      const employeesRepository = EmployeesRepository.getINSTANCE();
+      const employee = await employeesRepository.findById(id);
 
-      next();
+      if (employee) {
+        request.employeeId = employee.id;
+        next();
+      }
+
+      throw new Error("unauthorized");
+
 
     } catch (err) {
       return response

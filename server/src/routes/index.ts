@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { EndureAuthenticated } from '../middlewares/endureAuthenticated';
+import { authenticationAdminController } from "../useCases/Admin/Authentication";
 import { authenticationEmployeeComtroller } from '../useCases/Employee/Authentication';
 import { adminRoutes } from "./admin.routes";
 import { assignedTasksRoutes } from "./assignedtasks.routes";
@@ -15,6 +16,10 @@ const endureAuthenticated = new EndureAuthenticated();
 
 router.post("/employees/authenticate", (request, response) =>
     authenticationEmployeeComtroller.handle(request, response)
+);
+
+router.post("/admins/authenticate", (request, response) =>
+    authenticationAdminController.handle(request, response)
 );
 
 router.use(endureAuthenticated.auth);
