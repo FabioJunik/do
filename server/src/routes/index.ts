@@ -5,6 +5,7 @@ import { assignedTasksRoutes } from "./assignedtasks.routes";
 import { employeesRoutes } from "./employees.routes";
 import { rolesRoutes } from "./roles.routes";
 import { unassignedTasksRoutes } from "./unassignedtasks.routes";
+import { uploadRoutes } from "./uploads.routes";
 
 
 const router = Router();
@@ -17,8 +18,9 @@ router.post("/employees/authenticate", (request, response) =>
 
 router.use(endureAuthenticated.auth);
 router.use("/employees", employeesRoutes)
-router.use("/assignedtasks", assignedTasksRoutes);
 router.use("/roles", rolesRoutes)
+router.use("/assignedtasks", assignedTasksRoutes);
 router.use("/unassignedtasks", unassignedTasksRoutes);
+router.use("/uploads", uploadRoutes);
 
 export { router }
