@@ -21,7 +21,16 @@ export class AdminsRepository implements IAdminsRepository {
     }
 
     public async list(): Promise<ListAdminProps[]> {
-        return;
+        const admins = await prisma.admin.findMany({
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                photoUrl: true,
+            },
+        });
+
+        return admins;
     }
 
     public async save(admin: ICreateAdminDTO): Promise<Admin> {
