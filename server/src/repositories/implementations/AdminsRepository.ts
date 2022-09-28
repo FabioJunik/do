@@ -47,15 +47,23 @@ export class AdminsRepository implements IAdminsRepository {
     }
 
     public async findByEmail(email: string): Promise<Admin> {
-        return;
+        const admin = await prisma.admin.findFirst({
+            where: { email }
+        })
+        return admin;
     };
 
     public async findById(id: string): Promise<Admin> {
-        return;
+        const admin = await prisma.admin.findUniqueOrThrow({
+            where: { id }
+        })
+        return admin;
     };
 
     public async delete(id: string): Promise<Admin> {
-        return;
+        const admin = await prisma.admin.delete({ where: { id } })
+
+        return admin;
     };
 
     public async update(Admin: IUpdateAdminDTO): Promise<Admin> {
