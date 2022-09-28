@@ -7,7 +7,7 @@ import { ListBullets, Plus, UserPlus } from "phosphor-react";
 import { EmployeeModal } from "../components/EmployeesModal";
 import { Avatar } from "../components/Avatar";
 import { Logo } from "../components/Logo";
-import { Container, Content, PopoverArrow, PopoverContent, Top } from "./styles";
+import { Container, Content, PopoverArrow, PopoverContent, Top } from "../styles/styledComponents";
 import { EmployeeTable } from '../components/EmployeeTable';
 import { AssignedTaskTable } from '../components/AssignedTaskTable';
 import { UnassignedTaskTable } from '../components/UnassignedTaskTable';
