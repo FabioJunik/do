@@ -26,13 +26,28 @@ export function Home() {
     const user = User as IUserProps;
 
     const [tasks, setTasks] = useState<ITaskProps[]>([]);
+    const [allTasks, setAllTasks] = useState<ITaskProps[]>([]);
 
     useEffect(() => {
         api.get(`/assignedtasks/${user.id}`).
             then(response => {
                 setTasks(response.data)
+                setAllTasks(response.data)
+                console.log(allTasks)
             });
     }, [user])
+
+    function handleFilterTasksByState(state: string) {
+        if (state !== 'all') {
+            const taskFiltered = allTasks.filter(task => task.state === state);
+            setTasks(taskFiltered);
+
+            return
+        }
+
+        setTasks(allTasks);
+
+    }
 
     return (
         <Container>
@@ -46,20 +61,29 @@ export function Home() {
                 <nav>
                     <ul>
                         <li>
-                            <button className="first">
+                            <button
+                                onClick={() => handleFilterTasksByState('all')}
+                                className="first"
+                            >
                                 Todas <ListBullets />
                             </button>
                         </li>
                         <li>
-                            <button> Pendentes <HourglassMedium /></button>
+                            <button
+                                onClick={() => handleFilterTasksByState('pending')}
+                            > Pendentes <HourglassMedium /></button>
                         </li>
                         <li>
-                            <button>
+                            <button
+                                onClick={() => handleFilterTasksByState('done')}
+                            >
                                 Finalizadas <Checks />
                             </button>
                         </li>
                         <li>
-                            <button className='last'>
+                            <button
+                                onClick={() => handleFilterTasksByState('undone')}
+                                className='last'>
                                 Não finalizadas <XCircle />
                             </button>
                         </li>
@@ -77,7 +101,7 @@ export function Home() {
                     </thead>
                     <tbody>
                         {tasks.map(({ id, description, state, createdAt }) => (
-                            <tr>
+                            <tr key={id}>
                                 <td>{description}</td>
                                 <td>------------</td>
                                 <td>
