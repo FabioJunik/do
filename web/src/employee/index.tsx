@@ -8,9 +8,31 @@ import { Avatar } from "../components/Avatar";
 import { Logo } from "../components/Logo";
 import { Container, Content, Top } from "../styles/styledComponents";
 
+interface IUserProps {
+    id: string;
+    photoUrl: string;
+}
+
+interface ITaskProps {
+    id: string;
+    description: string;
+    state: string;
+    updatedAt: Date;
+    createdAt: Date;
+}
 
 export function Home() {
-    const { user } = useContext(AuthContext);
+    const { user: User } = useContext(AuthContext);
+    const user = User as IUserProps;
+
+    const [tasks, setTasks] = useState<ITaskProps[]>([]);
+
+    useEffect(() => {
+        api.get(`/assignedtasks/${user.id}`).
+            then(response => {
+                setTasks(response.data)
+            });
+    }, [user])
 
     return (
         <Container>
@@ -54,20 +76,26 @@ export function Home() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Lorem ipsum dolor adipisicing elit.</td>
-                            <td>12/04/4212</td>
-                            <td>
-                                <span className='pending'>
-                                    Pendente
-                                </span>
-                            </td>
-                            <td>14/03/1002</td>
-                            <td className='optionsButton'>
-                                <button> Finalizar</button>
-                                <button className='remove'>Não finalizar</button>
-                            </td>
-                        </tr>
+                        {tasks.map(({ id, description, state, createdAt }) => (
+                            <tr>
+                                <td>{description}</td>
+                                <td>------------</td>
+                                <td>
+                                    <span className={state}>
+                                        {state === 'pending' && 'Pendente'}
+                                        {state === 'done' && 'Finalizado'}
+                                        {state === 'undone' && 'Não finalizado'}
+                                    </span>
+                                </td>
+                                <td>{createdAt.toString().substring(0, 10)} às {createdAt.toString().substring(11, 16)}</td>
+                                <td className='optionsButton'>
+                                    {state === 'pending' && <>
+                                        <button> Finalizar</button>
+                                        <button className='remove'>Não finalizar</button>
+                                    </>}
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </Content>
