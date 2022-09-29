@@ -17,10 +17,14 @@ interface IListAssignedTaskDTO {
     }
 }
 
+type IListEmployeeTasks = Omit<IListAssignedTaskDTO, "employee">;
+
 interface IAssignedTasksRepository {
+    employeeHaveAssignedTasks: (id: string) => Promise<boolean>;
     save: (Assignedtask: ICreateAssignedTaskDTO) => Promise<AssignedTask>;
     list: () => Promise<IListAssignedTaskDTO[]>;
+    listTasksByEmployee: (id: string) => Promise<IListEmployeeTasks[]>;
     delete: (id: string) => Promise<AssignedTask>;
 }
 
-export { IAssignedTasksRepository, ICreateAssignedTaskDTO, IListAssignedTaskDTO };
+export { IAssignedTasksRepository, ICreateAssignedTaskDTO, IListAssignedTaskDTO, IListEmployeeTasks };

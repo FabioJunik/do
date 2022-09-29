@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { AssignedTask } from "../../entities/AssignedTask";
-import { ICreateAssignedTaskDTO, IListAssignedTaskDTO, IAssignedTasksRepository } from "../IAssignedTasksRepository";
+import { ICreateAssignedTaskDTO, IListAssignedTaskDTO, IAssignedTasksRepository, IListEmployeeTasks } from "../IAssignedTasksRepository";
 
 
 const prisma = new PrismaClient();
@@ -19,6 +19,14 @@ export class AssignedTasksRepository implements IAssignedTasksRepository {
             AssignedTasksRepository.INSTANCE = new AssignedTasksRepository();
 
         return AssignedTasksRepository.INSTANCE;
+    }
+
+    public async employeeHaveAssignedTasks(employeeId: string): Promise<boolean> {
+        const employeeFound = await prisma.assignedTask.findFirst({
+            where: { employeeId }
+        });
+
+        return !!employeeFound;
     }
 
     public async save({ employeeId, description }: ICreateAssignedTaskDTO): Promise<AssignedTask> {
@@ -49,6 +57,23 @@ export class AssignedTasksRepository implements IAssignedTasksRepository {
         });
 
         return Assignedtasks;
+    }
+
+    public async listTasksByEmployee(id: string): Promise<IListEmployeeTasks[]> {
+        const employeeTasks = await prisma.assignedTask.findMany({
+            where: {
+                employeeId: id
+            },
+            select: {
+                id: true,
+                description: true,
+                state: true,
+                updateAt: true,
+                createdAt: true,
+            }
+        });
+
+        return employeeTasks;
     }
 
     public async delete(id: string): Promise<AssignedTask> {
