@@ -14,6 +14,7 @@ export default createGlobalStyle`
 
         --white: #fff;
         --black-500: #282a36;
+        --black-300: #636262;
         --gray-300: #D9D9D9;
 
         --green-300: #43cc8a;
