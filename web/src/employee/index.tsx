@@ -7,6 +7,9 @@ import { Checks, HourglassMedium, ListBullets, XCircle } from "phosphor-react";
 import { Avatar } from "../components/Avatar";
 import { Logo } from "../components/Logo";
 import { Container, Content, Top } from "../styles/styledComponents";
+import * as AlertDialog from '@radix-ui/react-alert-dialog';
+import { AlertTrigger } from '../styles/alertModalStyles';
+import { AlertModal } from '../components/AlertModal';
 
 interface IUserProps {
     id: string;
@@ -33,7 +36,6 @@ export function Home() {
             then(response => {
                 setTasks(response.data)
                 setAllTasks(response.data)
-                console.log(allTasks)
             });
     }, [user])
 
@@ -46,7 +48,20 @@ export function Home() {
         }
 
         setTasks(allTasks);
+    }
 
+    function handleToFinishOrUnfinishTasks(id: string, state: string) {
+        try {
+            api.post(`/assignedtasks/updatestate/${id}`, { state })
+
+            setTasks(allTasks.map(task => task.id !== id ? task : { ...task, state: state }));
+
+            alert("Tarefa finalizar/não finalizada com sucesso!");
+
+        } catch (err) {
+            alert("Erro ao finalizar/não finalizada a tarefa");
+            console.log(err);
+        }
     }
 
     return (
@@ -114,8 +129,8 @@ export function Home() {
                                 <td>{createdAt.toString().substring(0, 10)} às {createdAt.toString().substring(11, 16)}</td>
                                 <td className='optionsButton'>
                                     {state === 'pending' && <>
-                                        <button> Finalizar</button>
-                                        <button className='remove'>Não finalizar</button>
+                                        <button onClick={() => handleToFinishOrUnfinishTasks(id, "done")}>Finalizar</button>
+                                        <button onClick={() => handleToFinishOrUnfinishTasks(id, "undone")} className='remove'>Não finalizar</button>
                                     </>}
                                 </td>
                             </tr>
