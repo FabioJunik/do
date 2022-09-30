@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { AssignedTask } from "../../entities/AssignedTask";
-import { ICreateAssignedTaskDTO, IListAssignedTaskDTO, IAssignedTasksRepository, IListEmployeeTasks } from "../IAssignedTasksRepository";
+import { ICreateAssignedTaskDTO, IListAssignedTaskDTO, IAssignedTasksRepository, IListEmployeeTasks, IUpdateStateTask } from "../IAssignedTasksRepository";
 
 
 const prisma = new PrismaClient();
@@ -20,6 +20,14 @@ export class AssignedTasksRepository implements IAssignedTasksRepository {
 
         return AssignedTasksRepository.INSTANCE;
     }
+
+    public async findById(id: string): Promise<AssignedTask> {
+        const task = await prisma.assignedTask.findUnique({
+            where: { id }
+        })
+
+        return task
+    };
 
     public async employeeHaveAssignedTasks(employeeId: string): Promise<boolean> {
         const employeeFound = await prisma.assignedTask.findFirst({
@@ -79,5 +87,17 @@ export class AssignedTasksRepository implements IAssignedTasksRepository {
     public async delete(id: string): Promise<AssignedTask> {
         const deleteAssignedTask = await prisma.assignedTask.delete({ where: { id } });
         return deleteAssignedTask
+    }
+
+    public async updateStateTask({ id, state }: IUpdateStateTask): Promise<AssignedTask> {
+        const task = await prisma.assignedTask.update({
+            where: { id },
+            data: {
+                state,
+                updateAt: new Date
+            }
+        })
+
+        return task;
     }
 }

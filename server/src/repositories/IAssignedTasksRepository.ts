@@ -17,14 +17,24 @@ interface IListAssignedTaskDTO {
     }
 }
 
+interface IUpdateStateTask {
+    id: string;
+    state: string;
+}
+
 type IListEmployeeTasks = Omit<IListAssignedTaskDTO, "employee">;
 
 interface IAssignedTasksRepository {
+    findById: (id: string) => Promise<AssignedTask>;
     employeeHaveAssignedTasks: (id: string) => Promise<boolean>;
     save: (Assignedtask: ICreateAssignedTaskDTO) => Promise<AssignedTask>;
     list: () => Promise<IListAssignedTaskDTO[]>;
     listTasksByEmployee: (id: string) => Promise<IListEmployeeTasks[]>;
     delete: (id: string) => Promise<AssignedTask>;
+    updateStateTask: (data: IUpdateStateTask) => Promise<AssignedTask>;
 }
 
-export { IAssignedTasksRepository, ICreateAssignedTaskDTO, IListAssignedTaskDTO, IListEmployeeTasks };
+export {
+    IAssignedTasksRepository, ICreateAssignedTaskDTO,
+    IListAssignedTaskDTO, IListEmployeeTasks, IUpdateStateTask
+};
