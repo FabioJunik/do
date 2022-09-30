@@ -73,17 +73,13 @@ export class EmployeesRepository implements IEmployeesRepository {
         return employee;
     };
 
-    public async update(employee: IUpdateEmployeeDTO): Promise<Employee> {
+    public async update(employee: Partial<IUpdateEmployeeDTO>): Promise<Employee> {
 
         const employeeUpdated = await prisma.employee.update({
             where: {
                 id: employee.id
             },
-            data: {
-                roleId: employee.roleId,
-                name: employee.name,
-                email: employee.email,
-            }
+            data: employee
         })
 
         return employeeUpdated;
