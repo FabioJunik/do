@@ -7,6 +7,10 @@ type JwtPayloadProps = {
   id: string;
 };
 
+type UserProps = {
+  id: string;
+}
+
 export class EndureAuthenticated {
   async auth(request: Request, response: Response, next: NextFunction) {
     const { authorization } = request.headers;
@@ -25,7 +29,7 @@ export class EndureAuthenticated {
 
       if (admin) {
         request.adminId = admin.id;
-        next();
+        return next();
       }
 
       const employeesRepository = EmployeesRepository.getINSTANCE();
@@ -33,11 +37,10 @@ export class EndureAuthenticated {
 
       if (employee) {
         request.employeeId = employee.id;
-        next();
+        return next();
       }
 
       throw new Error("unauthorized");
-
 
     } catch (err) {
       return response

@@ -54,7 +54,7 @@ export class AdminsRepository implements IAdminsRepository {
     };
 
     public async findById(id: string): Promise<Admin> {
-        const admin = await prisma.admin.findUniqueOrThrow({
+        const admin = await prisma.admin.findUnique({
             where: { id }
         })
         return admin;
