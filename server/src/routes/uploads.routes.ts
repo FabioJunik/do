@@ -9,7 +9,7 @@ uploadRoutes.post("/avatar", uploadAvatar.single('avatar'), async (request, resp
     const { file } = request;
 
     if (file) {
-        return response.json({ message: "success" });
+        return response.json(file);
     }
 
     return response.status(400).json({ error: "Can't upload image" });

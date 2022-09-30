@@ -22,7 +22,7 @@ router.post("/admins/authenticate", (request, response) =>
     authenticationAdminController.handle(request, response)
 );
 
-router.use(endureAuthenticated.auth);
+// router.use(endureAuthenticated.auth);
 router.use("/admins", adminRoutes);
 router.use("/employees", employeesRoutes)
 router.use("/roles", rolesRoutes)
