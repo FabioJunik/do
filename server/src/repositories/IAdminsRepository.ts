@@ -8,6 +8,7 @@ interface ICreateAdminDTO {
 
 type IUpdateAdminDTO = ICreateAdminDTO & {
     id: string;
+    photoUrl: string;
 };
 
 type ListAdminProps = Omit<Admin, "password">

@@ -66,7 +66,11 @@ export class AdminsRepository implements IAdminsRepository {
         return admin;
     };
 
-    public async update(Admin: IUpdateAdminDTO): Promise<Admin> {
-        return;
+    public async update(admin: Partial<IUpdateAdminDTO>): Promise<Admin> {
+        const adminUpdated = await prisma.admin.update({
+            where: { id: admin.id },
+            data: admin
+        })
+        return adminUpdated;
     }
 }
