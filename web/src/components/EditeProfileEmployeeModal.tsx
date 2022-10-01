@@ -1,20 +1,18 @@
-import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { api } from '../service/api';
 
+import { AuthContext } from '../contexts/AuthContext';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Content, Overlay, Title, Close } from '../styles/modalStyles';
-import { Password } from 'phosphor-react';
-import { AuthContext } from '../contexts/AuthContext';
-
 
 
 interface IUserProps {
-    id: string;
+    id?: string;
     name: string;
-    photoUrl: string;
+    photoUrl?: string;
     password: string;
     email: string;
-    roleId: string;
+    roleId?: string;
 }
 
 
@@ -26,6 +24,12 @@ export function EditeProfileEmployeeModal() {
 
     const [password, setPassword] = useState(user.password);
     let file: File;
+
+    const [dataForm, setDataForm] = useState<IUserProps>({
+        name: user.name,
+        email: user.email,
+        password: user.password
+    })
 
 
     async function handleUpdateData(event: FormEvent) {
@@ -40,22 +44,36 @@ export function EditeProfileEmployeeModal() {
         formData.append('avatar', file);
 
         try {
-            await api.post(`/uploads/avatar`, formData)
-                .then(response => {
-                    const filename = response.data.filename;
-                    const photoUrl = `http://localhost:5000/files/avatar/${filename}`;
-
-                    api.put(`/employees/${user.id}`, {
-                        password,
-                        photoUrl
+            if (file) {
+                await api.post(`/uploads/avatar`, formData)
+                    .then(response => {
+                        const filename = response.data.filename;
+                        user.photoUrl = `http://localhost:5000/files/avatar/${filename}`;
                     })
+            }
 
-                    localStorage.setItem('user', JSON.stringify({ ...user, photoUrl }));
-                    console.log(JSON.parse(localStorage.getItem('user') || ''));
-                    location.reload();
+            if (user.roleId) {
+                await api.put(`/employees/${user.id}`, {
+                    password,
+                    photoUrl: user.photoUrl
                 })
+            } else {
+                await api.put(`/admins/${user.id}`, {
+                    name: dataForm.name,
+                    email: dataForm.email,
+                    password,
+                    photoUrl: dataForm.photoUrl,
+                })
+            }
 
-            alert("Imagem enviada  com sucesso");
+            user.name = dataForm.name;
+            user.password = password;
+            user.email = dataForm.email;
+
+            localStorage.setItem('user', JSON.stringify({ ...user, photoUrl: user.photoUrl }));
+            location.reload();
+
+            alert("Dados actualizados com sucesso");
         } catch (err) {
             alert("Erro ao actualizar");
             console.log(err);
@@ -92,25 +110,28 @@ export function EditeProfileEmployeeModal() {
                         <div>
                             <label htmlFor="name">Nome</label>
                             <input
-                                value={user.name}
-                                disabled
+                                value={dataForm.name}
+                                onChange={(e) => setDataForm({ ...dataForm, name: e.target.value })}
+                                disabled={!!user.roleId}
                             />
                         </div>
                         <div>
                             <label htmlFor="email">E-mail</label>
                             <input
-                                value={user.email}
-                                disabled
+                                value={dataForm.email}
+                                onChange={(e) => setDataForm({ ...dataForm, email: e.target.value })}
+                                disabled={!!user.roleId}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="role">Cargo</label>
-                            <input
-                                value={user.roleId}
-                                disabled
-                            />
-                        </div>
-
+                        {user.roleId &&
+                            <div>
+                                <label htmlFor="role">Cargo</label>
+                                <input
+                                    value={user.roleId}
+                                    disabled
+                                />
+                            </div>
+                        }
                         <div>
                             <label htmlFor="password">Palavra Passe</label>
                             <input

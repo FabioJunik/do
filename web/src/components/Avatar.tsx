@@ -81,7 +81,7 @@ export function Avatar({ src }: AvatarProps) {
             </PopoverTrigger>
             <PopoverContent>
                 <Dialog.Root>
-                    <Dialog.Trigger title="Adicionar tarefa">
+                    <Dialog.Trigger title="Editar perfil">
                         <User /> Meu perfil
                     </Dialog.Trigger>
                     <EditeProfileEmployeeModal />

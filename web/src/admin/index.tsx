@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Popover from '@radix-ui/react-popover';
@@ -12,9 +12,18 @@ import { EmployeeTable } from '../components/EmployeeTable';
 import { AssignedTaskTable } from '../components/AssignedTaskTable';
 import { UnassignedTaskTable } from '../components/UnassignedTaskTable';
 import { CreateTaskModal } from '../components/CreateTaskModal';
+import { AuthContext } from '../contexts/AuthContext';
 
+interface IUserProps {
+    id: string;
+    photoUrl: string;
+}
 
 export function Home() {
+
+    const { user: User } = useContext(AuthContext);
+    const user = User as IUserProps;
+
     const [showEmployeeTable, setShowEmployeeTable] = useState(false);
     const [showAssignedTaskTable, setShowAssignedTaskTable] = useState(true);
     const [showUnassignedTaskTable, setShowUnassignedTaskTable] = useState(false);
@@ -23,7 +32,7 @@ export function Home() {
             <Top>
                 <div>
                     <Logo />
-                    <Avatar src='https://github.com/fabiojunik.png' />
+                    <Avatar src={user.photoUrl} />
                 </div>
             </Top>
             <Content>
