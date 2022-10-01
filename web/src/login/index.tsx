@@ -1,4 +1,5 @@
-import axios from "axios";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { FormEvent, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { Container, FormStyled } from "./styles";
@@ -34,6 +35,7 @@ export function Login() {
                 <input type="password" placeholder="Password" name="password" id="password" />
 
                 <button type="submit">Entrar</button>
+                <ToastContainer closeButton={false} style={{ fontSize: "1.5rem" }} />
             </FormStyled>
         </Container>
     )

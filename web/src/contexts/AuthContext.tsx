@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { api } from "../service/api";
+import { toast } from 'react-toastify';
+
 
 
 interface IAuthContextProps {
@@ -47,9 +49,8 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
                 await api.post("/admins/authenticate", data).then(response => {
                     redirect(response.data.token, response.data.admin, "/admin/home")
                 });
-            } catch (err) {
-                alert("Email ou senha incorreta")
-                console.log(err)
+            } catch (err: any) {
+                toast.error(err.response.data.error);
             }
         }
     }
