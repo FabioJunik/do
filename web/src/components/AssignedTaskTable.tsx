@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { api } from "../service/api";
 
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
-
+import { toast } from 'react-toastify';
 import { PencilSimpleLine, Trash } from "phosphor-react";
+
 import { AlertModal } from "./AlertModal";
 import { AlertTrigger } from "../styles/alertModalStyles";
 
@@ -33,8 +34,9 @@ export function AssignedTaskTable() {
         try {
             api.delete(`/assignedtasks/${id}`)
             setEmployee(employee.filter(task => task.id !== id));
-        } catch (err) {
-            alert("Erro ao remover tarefa");
+            toast.success("Tarefa eliminada com sucesso !")
+        } catch (err: any) {
+            toast.error(err.response.data.error)
             console.log(err);
         }
 

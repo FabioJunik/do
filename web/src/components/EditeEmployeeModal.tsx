@@ -1,8 +1,10 @@
 import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { api } from '../service/api';
-
 import { AuthContext } from '../contexts/AuthContext';
+
 import * as Dialog from '@radix-ui/react-dialog';
+import { toast } from 'react-toastify';
+
 import { Content, Overlay, Title, Close } from '../styles/modalStyles';
 
 
@@ -16,7 +18,7 @@ interface IUserProps {
 }
 
 
-export function EditeProfileEmployeeModal() {
+export function EditeProfileModal() {
     const [error, setError] = useState('');
 
     const { user: User } = useContext(AuthContext);
@@ -73,9 +75,9 @@ export function EditeProfileEmployeeModal() {
             localStorage.setItem('user', JSON.stringify({ ...user, photoUrl: user.photoUrl }));
             location.reload();
 
-            alert("Dados actualizados com sucesso");
-        } catch (err) {
-            alert("Erro ao actualizar");
+            toast.success("Dados actualizados com sucesso !")
+        } catch (err: any) {
+            toast.error(err.response.data.error)
             console.log(err);
         }
 

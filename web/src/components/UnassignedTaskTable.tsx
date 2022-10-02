@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { api } from "../service/api";
 
+import { toast } from 'react-toastify';
 import * as Dialog from "@radix-ui/react-dialog";
+
 import { ToAssignTaskModal } from "./ToAssignTaskModal";
 
 
@@ -25,8 +27,12 @@ export function UnassignedTaskTable() {
         try {
             api.delete(`/unassignedtasks/${id}`)
             setUnassigned(unassigned.filter(task => task.id === id));
-        } catch (err) {
-            alert("Erro ao remover tarefa")
+
+            toast.success("Tarefa eliminada com sucesso !");
+
+        } catch (err: any) {
+            toast.error(err.response.data.error)
+            console.log(err);
         }
     }
 

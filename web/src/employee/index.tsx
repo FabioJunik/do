@@ -2,14 +2,13 @@ import { useContext, useEffect, useState } from 'react';
 import { api } from '../service/api';
 import { AuthContext } from '../contexts/AuthContext';
 
+import { toast } from 'react-toastify';
 import { Checks, HourglassMedium, ListBullets, XCircle } from "phosphor-react";
 
 import { Avatar } from "../components/Avatar";
 import { Logo } from "../components/Logo";
 import { Container, Content, Top } from "../styles/styledComponents";
-import * as AlertDialog from '@radix-ui/react-alert-dialog';
-import { AlertTrigger } from '../styles/alertModalStyles';
-import { AlertModal } from '../components/AlertModal';
+
 
 interface IUserProps {
     id: string;
@@ -56,10 +55,10 @@ export function Home() {
 
             setTasks(allTasks.map(task => task.id !== id ? task : { ...task, state: state }));
 
-            alert("Tarefa finalizar/não finalizada com sucesso!");
+            toast.success("Tarefa finalizar/não finalizada com sucesso!");
 
-        } catch (err) {
-            alert("Erro ao finalizar/não finalizada a tarefa");
+        } catch (err: any) {
+            toast.error(err.response.data.error)
             console.log(err);
         }
     }

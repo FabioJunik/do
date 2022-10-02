@@ -3,7 +3,7 @@ import * as Popover from "@radix-ui/react-popover";
 import { SignOut, User } from "phosphor-react";
 import styled from "styled-components"
 import { PopoverArrow } from "../styles/styledComponents";
-import { EditeProfileEmployeeModal } from "./EditeProfileEmployeeModal";
+import { EditeProfileModal } from "./EditeEmployeeModal";
 
 
 
@@ -84,7 +84,7 @@ export function Avatar({ src }: AvatarProps) {
                     <Dialog.Trigger title="Editar perfil">
                         <User /> Meu perfil
                     </Dialog.Trigger>
-                    <EditeProfileEmployeeModal />
+                    <EditeProfileModal />
                 </Dialog.Root>
                 <button onClick={handleSingOut}><SignOut />Sair</button>
                 <PopoverArrow />

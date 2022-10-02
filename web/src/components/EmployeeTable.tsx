@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../service/api";
 
+import { toast } from 'react-toastify';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as  AlertDialog from "@radix-ui/react-alert-dialog";
 import { PencilSimpleLine, Trash } from "phosphor-react";
@@ -35,8 +36,8 @@ export function EmployeeTable() {
         try {
             api.delete(`/employees/${id}`)
             setEmployee(employee.filter(task => task.id !== id));
-        } catch (err) {
-            alert("Erro ao remover tarefa");
+        } catch (err: any) {
+            toast.error(err.response.data.error)
             console.log(err);
         }
 

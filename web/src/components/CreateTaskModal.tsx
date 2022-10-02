@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react';
 import { api } from '../service/api';
 
 import * as Dialog from '@radix-ui/react-dialog';
+import { toast } from 'react-toastify';
 import { Content, Overlay, Title, Close } from '../styles/modalStyles';
 
 
@@ -19,10 +20,11 @@ export function CreateTaskModal() {
             })
 
             setDescription('');
-            alert("Tarefa adicionada com sucesso !");
+            toast.success("Tarefa adicionada com sucesso !");
 
-        } catch (err) {
-            alert("Erro ao adicionar");
+        } catch (err: any) {
+            toast.error(err.response.data.error);
+
             console.log(err);
         }
 

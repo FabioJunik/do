@@ -1,7 +1,9 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { api } from '../service/api';
 
+import { toast } from 'react-toastify';
 import * as Dialog from '@radix-ui/react-dialog';
+
 import { Content, Overlay, Title, Close } from '../styles/modalStyles';
 
 interface IAssignTaskProps {
@@ -35,11 +37,11 @@ export function ToAssignTaskModal({ id, description }: IAssignTaskProps) {
 
             api.delete(`/unassignedtasks/${id}`)
 
-            console.log(data.employee)
-            alert("Tarefa atribuida com sucesso !");
-        } catch (err) {
-            console.log(err)
-            alert("Erro ao atribuir a tarefa!")
+            toast.success("Tarefa atribuida com sucesso !")
+
+        } catch (err: any) {
+            toast.error(err.response.data.error)
+            console.log(err);
         }
 
     }

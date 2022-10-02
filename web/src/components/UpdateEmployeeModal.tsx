@@ -1,7 +1,9 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { api } from '../service/api';
 
+import { toast } from 'react-toastify';
 import * as Dialog from '@radix-ui/react-dialog';
+
 import { Content, Overlay, Title, Close } from '../styles/modalStyles';
 
 
@@ -70,10 +72,11 @@ export function UpdateEmployeeModal({ id, name, email, roleId }: IUpdateProps) {
                 password: ''
 
             })
-            alert("Funcionarios cadastrado com sucesso");
 
-        } catch (err) {
-            alert("Erro no cadastro");
+            toast.success("Dados funcionario actualizados com sucesso !");
+
+        } catch (err: any) {
+            toast.error(err.response.data.error)
             console.log(err);
         }
 
